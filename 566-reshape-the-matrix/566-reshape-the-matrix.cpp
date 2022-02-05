@@ -16,21 +16,17 @@ public:
         int k=0;
         int l=0;
         
+        
        for(int i=0;i<n;i++){
          for(int j=0;j<m;j++){
              
-             ans[k][l]=mat[i][j];
+             ans[k][l%c]=mat[i][j];
              l++;
-             if(l==c){
-                 k++;
-                 l=0;
-             }
              
-             
-            }   
+             l%c==0? k++ : k;
+          }
+        
        }
-        
-        
         return ans;
         
         
