@@ -12,10 +12,7 @@ public:
     int guessNumber(int n) {
         int i=1;
         int j=n;
-        int check=guess(j);
-        if(check==0){
-            return  j;
-        }
+        
         
         while(i<=j){
             int mid=i+(j-i)/2;
@@ -25,14 +22,14 @@ public:
             if(check==0){
                 return mid;
             }else if(check==-1){
-                j=mid;
+                j=mid-1;
             }
             else{
-                i=mid;
+                i=mid+1;
             }
             
         }
-        return -1;
+        return j;
         
     }
 };
