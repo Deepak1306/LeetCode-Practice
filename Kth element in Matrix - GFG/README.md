@@ -1,5 +1,5 @@
 # Kth element in Matrix
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px"><span style="font-family:arial,helvetica,sans-serif">Given a&nbsp;N&nbsp;x N&nbsp;matrix, where every row and column is sorted in non-decreasing order. Find the kth smallest element in the matrix.</span></span></p>
 
