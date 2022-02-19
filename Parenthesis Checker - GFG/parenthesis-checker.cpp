@@ -29,7 +29,7 @@ class Solution
         for(int i=0;i<n;i++){
             if(x[i]=='(' || x[i]=='[' || x[i]=='{'){
                 st.push(x[i]);
-            }else if(x[i]==')' || x[i]==']' || x[i]=='}'){
+            }else{
                 if(st.empty() || !arePairs(st.top(),x[i])){
                     return false;
                 }
