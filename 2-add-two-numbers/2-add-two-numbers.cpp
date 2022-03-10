@@ -10,58 +10,51 @@
  */
 class Solution {
 public:
-    int count(ListNode* l1){
-        int ans=0;
-        while(l1!=NULL){
-            ans++;
-            l1=l1->next;
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        if(l1==NULL){
+            return l2;
+        }else if(l2==NULL){
+            return l1;
         }
         
-        return ans;
+        ListNode*head=NULL;
+        ListNode*tail=NULL;
         
-    }
-    void add(ListNode* l1,ListNode* l2,int carry,ListNode*temp){
-        if(l1==NULL && carry!=0){
-            ListNode*newNode=new ListNode(carry);
-            temp->next=newNode;
-            return ;
-        }else if(l1==NULL && carry==0){
-            return;
-        }
-        else if(l1!=NULL && l2==NULL && carry==0){
-            return ;
-        }else if(l1!=NULL && l2==NULL && carry!=0){
-            int a=l1->val+carry;
-            l1->val=a%10;
-            carry=a/10;
-            add(l1->next,l2,carry,l1);
-            return;
+        int carry=0;
+        
+        while(l1 ||l2){
+          int v1=l1?l1->val:0;
+          int v2=l2?l2->val:0;
+          
+          int value=v1+v2+carry;
+          
+            int v=value%10;
+            carry=value/10;
+            
+            ListNode*newNode=new ListNode(v);
+            
+            if(!head){
+                head=newNode;
+                tail=newNode;
+                
+            }else{
+                tail->next=newNode;
+                tail=newNode;
+            }
+            
+            l1=l1?l1->next:NULL;
+            l2=l2?l2->next:NULL;
+            
             
         }
         
-        int sum=l1->val+l2->val+carry;
-        l1->val=sum%10;
-        carry=sum/10;
-        
-          add(l1->next,l2->next,carry,l1);
-        
-        return;
-        
-    }
-    
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        
-       int count1=count(l1);
-       int count2=count(l2);
-        
-        if(count1>count2){
-            add(l1,l2,0,NULL);
-            return l1;
-        }else{
-            add(l2,l1,0,NULL);
-            return l2;
+        if(carry>0){
+            ListNode*newNode=new ListNode(carry);
+            tail->next=newNode;
+            tail=tail->next;
         }
         
+        return head;
         
     }
 };
