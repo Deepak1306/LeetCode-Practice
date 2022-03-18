@@ -2,49 +2,44 @@ class Solution {
 public:
     string removeDuplicateLetters(string s) {
         
-        int n=s.length();
-        if(n==0){
-            return "";
-        }
+        unordered_map<char,int>count;
         
-        unordered_map<char,int>map;
-        
-        for(int i=0;i<n;i++){
-            map[s[i]]++;
-        }
-        
-        bool arr[26];
-        for(int i=0;i<26;i++){
-            arr[i]=false;
+        for(int i=0;i<s.length();i++){
+            count[s[i]]++;
         }
         
         stack<char>st;
-        for(int i=0;i<n;i++){
-            char ch=s[i];
+        bool* check=new bool[26];
+        
+        for(int i=0;i<26;i++){
+            check[i]=false;
+        }
+        
+        
+        for(int i=0;i<s.length();i++){
+          char ch=s[i];
+            count[ch]--;
             
-            map[ch]--;
-            
-            if(arr[ch-'a']==true){
+            if(check[ch-'a']){
                 continue;
             }
             
-            while(!st.empty() && (ch-'a'<st.top()-'a') && map[st.top()]>0){
-                arr[st.top()-'a']=false;
+            while(!st.empty() && (ch-'a'<st.top()-'a') && count[st.top()]>0){
+                check[st.top()-'a']=false;
                 st.pop();
             }
             
-            arr[ch-'a']=true;
             st.push(ch);
-        }
+            check[ch-'a']=true;
+            
+        } 
         
         string str;
-        
         while(!st.empty()){
             str=st.top()+str;
             st.pop();
         }
         
         return str;
-        
     }
 };
