@@ -10,64 +10,66 @@
  */
 class Solution {
 public:
-    ListNode* merge(ListNode* head1,ListNode* head2){
-        if(head2==NULL){
-            return head1;
-        }
-        else if(head1==NULL){
-            return head2;
+    ListNode*mergeList(ListNode*list1,ListNode*list2){
+        if(list1==NULL){
+            return list2;
+        }else if(list2==NULL){
+            return list1;
         }
         
         ListNode*head=NULL;
         ListNode*tail=NULL;
         
-        if(head1->val<=head2->val){
-            head=head1;
-            tail=head1;
-            head1=head1->next;
+        if(list1->val < list2->val){
+            head=list1;
+            tail=list1;
+            list1=list1->next;
         }else{
-            head=head2;
-            tail=head2;
-            head2=head2->next;
+            head=list2;
+            tail=list2;
+            list2=list2->next;
         }
         
-        while(head1!=NULL && head2!=NULL){
-            
-           if(head1->val<=head2->val){
-               tail->next=head1;
-               tail=head1;
-               head1=head1->next;
-              
-           }else{
-               tail->next=head2;
-               tail=head2;
-               head2=head2->next;
-             
-           }
-        
+        while(list1!=NULL && list2!=NULL){
+             if(list1->val < list2->val){
+                tail->next=list1;
+                tail=list1;
+                list1=list1->next;
+            }else{
+                tail->next=list2;
+                tail=list2;
+                list2=list2->next;
+            }
+       
         }
-        if(head1!=NULL){
-            tail->next=head1;
-        }
-        if(head2!=NULL){
-            tail->next=head2;
+        if(list1!=NULL){
+            tail->next=list1;
+            return head;
+        }else{
+            tail->next=list2;
+            return head;
         }
         
-        return head;
+        
     }
     
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-         int n=lists.size();
+        int n=lists.size();
+        
         if(n==0){
             return NULL;
         }
-              
-        ListNode* ans=lists[0];
+        
+        
+        ListNode*head=lists[0];
+        ListNode*temp=NULL;
         
         for(int i=1;i<n;i++){
-          ans = merge(ans,lists[i]);
+            temp=lists[i];
+            head=mergeList(head,temp);
+            
         }
         
-        return ans;
+        return head;
     }
 };
