@@ -4,27 +4,29 @@ public:
         
         int n=nums.size();
         
-        int left=1;
-        int right=n-1;
+        int i=1;
+        int j=n-1;
         
-        while(left<right){
-            int mid=left+(right-left)/2;
+        while(i<j){
+            int mid=i+(j-i)/2;
+            
             int count=0;
-            for(auto num:nums){
-                if(num<=mid){
-                    count++;
-                }
+            
+            for(int i=0;i<n;i++){
+               if(nums[i]<=mid){
+                   count++;
+               }  
             }
             
             if(count>mid){
-                right=mid;
+                j=mid;
             }else{
-                left=mid+1;
+                i=mid+1;
             }
+            
         }
         
-        
-        return left;
+        return i;
         
     }
 };
