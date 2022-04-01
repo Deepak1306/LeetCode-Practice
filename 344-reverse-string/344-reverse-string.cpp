@@ -10,9 +10,10 @@ public:
             swap(s[i],s[j]);
             i++;
             j--;
+            
         }
-        return ;
         
+        return ;
         
     }
 };
