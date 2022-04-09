@@ -11,17 +11,18 @@ public:
             map[nums[i]]++;
         }
         
-        vector<pair<int,int>>smallAns(map.begin(),map.end());
+        vector<pair<int,int>>v(map.begin(),map.end());
         
-        sort(smallAns.begin(),smallAns.end(),comp);
+        sort(v.begin(),v.end(),comp);
         
         vector<int>ans;
-        
         for(int i=0;k>0;i++){
-            ans.push_back(smallAns[i].first);
+            ans.push_back(v[i].first);
             k--;
         }
         
         return ans;
+        
+        
     }
 };
