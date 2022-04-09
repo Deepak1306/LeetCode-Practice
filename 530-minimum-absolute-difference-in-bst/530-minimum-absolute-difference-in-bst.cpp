@@ -16,9 +16,7 @@ public:
             return;
         }
         
-        if(root->left!=NULL){
-           helper(root->left,ans,prev);
-        }
+        helper(root->left,ans,prev);
         
         
         if(prev){
