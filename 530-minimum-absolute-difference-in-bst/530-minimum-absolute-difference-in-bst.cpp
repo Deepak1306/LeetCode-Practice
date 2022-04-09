@@ -11,31 +11,34 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root,int& ans,TreeNode*& n){
+    void helper(TreeNode*root,int &ans, TreeNode* &prev){
+        if(root==NULL){
+            return;
+        }
+        
         if(root->left!=NULL){
-            dfs(root->left,ans,n);
+           helper(root->left,ans,prev);
         }
         
-        if(n){
-            ans=min(ans,abs(n->val-root->val));
+        
+        if(prev){
+            ans=min(ans,root->val-prev->val);
         }
+        prev=root;
         
-        n=root;
+        helper(root->right,ans,prev);
         
-        if(root->right!=NULL){
-            dfs(root->right,ans,n);
-        }
         
-    }
+        
+        
+    } 
     
     int getMinimumDifference(TreeNode* root) {
         
         int ans=INT_MAX;
-        TreeNode*n=NULL;
+        TreeNode*prev=NULL;
         
-        dfs(root,ans,n);
-        
+        helper(root,ans,prev);
         return ans;
-        
     }
 };
