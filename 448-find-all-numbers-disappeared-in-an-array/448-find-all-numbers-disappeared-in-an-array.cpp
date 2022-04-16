@@ -3,26 +3,20 @@ public:
     vector<int> findDisappearedNumbers(vector<int>& nums) {
        
         int n=nums.size();
-        
-        unordered_map<int,int>m;
-        
-        
-        for(int j=0;j<n;j++){
-           m[nums[j]]++;    
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            if(nums[abs(nums[i])-1]>0){
+                nums[abs(nums[i])-1]*=-1;
+            }
         }
         
-        
-        
-        vector<int>ans;
-        for(int i=1;i<=n;i++){
-          if(m.find(i)==m.end()){
-              ans.push_back(i);
-          }  
-            
+        for(int i=0;i<n;i++){
+            if(nums[i]>0){
+                ans.push_back(i+1);
+            }
         }
         
         return ans;
-        
         
     }
 };
