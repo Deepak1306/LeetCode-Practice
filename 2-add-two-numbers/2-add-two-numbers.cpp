@@ -20,23 +20,21 @@ public:
         ListNode*head=NULL;
         ListNode*tail=NULL;
         
+        int sum=0;
         int carry=0;
         
-        while(l1 ||l2){
-          int v1=l1?l1->val:0;
-          int v2=l2?l2->val:0;
-          
-          int value=v1+v2+carry;
-          
-            int v=value%10;
-            carry=value/10;
+        while(l1!=NULL || l2!=NULL){
+            int a=l1?l1->val:0;
+            int b=l2?l2->val:0;
             
-            ListNode*newNode=new ListNode(v);
+           sum=a + b + carry;
+            carry=sum/10;
+            sum=sum%10;
             
+            ListNode*newNode=new ListNode(sum);
             if(!head){
                 head=newNode;
                 tail=newNode;
-                
             }else{
                 tail->next=newNode;
                 tail=newNode;
@@ -44,17 +42,15 @@ public:
             
             l1=l1?l1->next:NULL;
             l2=l2?l2->next:NULL;
-            
-            
         }
         
         if(carry>0){
             ListNode*newNode=new ListNode(carry);
             tail->next=newNode;
-            tail=tail->next;
+            tail=newNode;
         }
         
-        return head;
         
+        return head;
     }
 };
