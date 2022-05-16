@@ -13,15 +13,14 @@ public:
         unordered_map<char,char>m2;
         
         for(int i=0;i<n;i++){
-            if(!m1[s[i]] && !m2[t[i]]){
-                m1[s[i]]=t[i];
-                m2[t[i]]=s[i];
-                
-            }else if(m1[s[i]]!=t[i] || m2[t[i]]!=s[i]){
+            m1[s[i]]=t[i];
+            m2[t[i]]=s[i];
+        }
+        
+        for(int j=0;j<m;j++){
+            if(m1[s[j]]!=t[j] || m2[t[j]]!=s[j]){
                 return false;
             }
-            
-            
         }
         
         return true;
