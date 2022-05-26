@@ -8,12 +8,11 @@ class Solution {
     long long int count(int S[], int m, int n) {
 
         // code here.
-        long long int dp[m+1][n+1];
+       long long int dp[m+1][n+1];
         
         for(int i=0;i<=m;i++){
             dp[i][0]=1;
         }
-        
         for(int j=1;j<=n;j++){
             dp[0][j]=0;
         }
@@ -29,7 +28,6 @@ class Solution {
         }
         
         return dp[m][n];
-        
         
     }
 };
