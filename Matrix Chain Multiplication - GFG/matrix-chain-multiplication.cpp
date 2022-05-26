@@ -11,6 +11,7 @@ class Solution{
 public:
 
     int helper(int arr[], int i, int j, vector<vector<int>>&dp){
+      
         if(i>=j){
             return 0;
         }
@@ -20,11 +21,13 @@ public:
         }
         
         int ans=INT_MAX;
+        
         for(int k=i;k<j;k++){
             int a=helper(arr,i,k,dp);
             int b=helper(arr,k+1,j,dp);
             
-            int  count=arr[i-1]*arr[k]*arr[j];
+            int count=arr[i-1]*arr[k]*arr[j];
+            
             count+=a+b;
             
             ans=min(ans,count);
@@ -32,7 +35,6 @@ public:
         
         
         return dp[i][j]=ans;
-        
     }
      
     int matrixMultiplication(int N, int arr[])
