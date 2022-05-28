@@ -20,7 +20,7 @@ class Solution
         }
         
         int ans=INT_MAX;
-        int i=0;
+        int i=1;
         int j=k;
         while(i<=j){
             int mid=i+(j-i)/2;
