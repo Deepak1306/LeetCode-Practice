@@ -20,10 +20,10 @@ public:
         for(int i=1;i<N;i++){
             dp[i]=1;
             for(int j=0;j<i;j++){
-                if(abs(A[j]-A[i])==1){
-                    dp[i]=max(dp[i],dp[j]+1);
+                if(abs(A[j]-A[i])>1 || abs(A[j]-A[i])==0 ){
+                continue;
                 }
-                
+                    dp[i]=max(dp[i],dp[j]+1);
                 ans=max(ans,dp[i]);
             }
         }
