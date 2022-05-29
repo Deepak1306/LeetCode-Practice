@@ -34,7 +34,7 @@ class Solution{
             }
         }
         
-        if(dp[N][W]==INT_MAX){
+        if(dp[N][W]>=INT_MAX){
             return -1;
         }
         
