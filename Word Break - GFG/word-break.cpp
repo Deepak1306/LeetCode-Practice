@@ -16,28 +16,33 @@ class Solution
 public:
     int wordBreak(string A, vector<string> &B) {
         //code here
-        
+        unordered_map<string,int>m;
         int n=A.length();
-        
         int dp[n];
-        for(int i=0;i<n;i++){
-            dp[i]=0;
+        memset(dp,0,sizeof(dp));
+        
+        for(int i=0;i<B.size();i++){
+            m[B[i]]=1;
         }
         
         for(int i=0;i<n;i++){
             for(int j=0;j<=i;j++){
-                string str=A.substr(j,i-j+1);
+                string s=A.substr(j,i-j+1);
+               if(m.find(s)!=m.end()){
+                   dp[i]=1;
+                   if(j>0){
+                       dp[i]=dp[i] && dp[j-1];
+                   }
+                   
+                   if(dp[i]==1){
+                       break;
+                   }
+               }
                 
-                if(find(B.begin(),B.end(),str)!=B.end()){
-                    if(j>0){
-                        dp[i]+=dp[j-1];
-                    }else{
-                        dp[i]+=1;
-                    }
-                }
             }
         }
-        return dp[n-1]>0;
+        
+        return dp[n-1];
     }
 };
 
