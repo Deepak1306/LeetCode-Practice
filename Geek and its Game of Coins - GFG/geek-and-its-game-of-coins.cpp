@@ -21,11 +21,11 @@ class Solution{
 		
 		for(int i=2;i<=N;i++){
 		    if(i<x){
-		        dp[i]=dp[i-1]^1;
+		        dp[i]=!dp[i-1];
 		    }else if(i<y){
-		        dp[i]=dp[i-1]^1 || dp[i-x]^1;
+		        dp[i]=!(dp[i-1] && dp[i-x]);
 		    }else{
-		        dp[i]=dp[i-1]^1 || dp[i-x]^1 || dp[i-y]^1;
+		        dp[i]=!(dp[i-1] && dp[i-x] && dp[i-y]);
 		    }
 		}
 		
