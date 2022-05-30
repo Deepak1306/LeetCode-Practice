@@ -37,12 +37,12 @@ public:
                     }else{
                         dp[i][j]=dp[i-1][j];
                     }
-                    
-                    
                 }
             }
         }
+        
         return dp[N][sum];
+        
     }
 };
 
