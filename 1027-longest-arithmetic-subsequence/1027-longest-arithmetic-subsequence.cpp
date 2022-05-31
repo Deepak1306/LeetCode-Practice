@@ -3,7 +3,7 @@ public:
     int longestArithSeqLength(vector<int>&A) {
         int n = A.size();
         int result = 0;
-        vector<vector<int>> dp(n,vector<int>(2000,0));
+        vector<vector<int>> dp(n,vector<int>(20000,0));
         
         for (int i = 1; i < n; i++) {
             int currNum=A[i];
