@@ -6,15 +6,14 @@ using namespace std;
 
  // } Driver Code Ends
 // User function Template for C++
-int dp[500][500][2];
+int dp[201][201][2];
 class Solution{
 public:
-    int count(string s, int i,int j,int isTrue,vector<vector<vector<int>>> &dp){
+    int solve(int i, int j, string s, int isTrue){
+        int mod=1003;
         if(i>j){
             return 0;
         }
-        
-       int mod=1003;
         
         if(i==j){
             if(isTrue==1){
@@ -23,25 +22,28 @@ public:
                 }else{
                     return 0;
                 }
-            }else if(isTrue==0){
+                
+            }else{
                 if(s[i]=='F'){
                     return 1;
                 }else{
                     return 0;
                 }
             }
+            
+            
         }
         
-         if(dp[i][j][isTrue]!=-1){
+        if(dp[i][j][isTrue]!=-1){
             return dp[i][j][isTrue];
         }
-        
         int ans=0;
+        
         for(int k=i+1;k<j;k+=2){
-            int lt=count(s,i,k-1,1,dp);
-            int lf=count(s,i,k-1,0,dp);
-            int rt=count(s,k+1,j,1,dp);
-            int rf=count(s,k+1,j,0,dp);
+            int lt=solve(i,k-1,s,1);
+            int lf=solve(i,k-1,s,0);
+            int rt=solve(k+1,j,s,1);
+            int rf=solve(k+1,j,s,0);
             
             if(s[k]=='^'){
                 
@@ -70,14 +72,17 @@ public:
         
         
         
+        
+        
     }
 
     int countWays(int N, string S){
         // code here
+        memset(dp,-1,sizeof(dp));
         
-        vector<vector<vector<int>>> dp(N,vector<vector<int>>(N,vector<int>(2,-1)));
+        return solve(0,N-1,S,1);
         
-        return count(S,0,N-1,1,dp);
+        
         
     }
 };
