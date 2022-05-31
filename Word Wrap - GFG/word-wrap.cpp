@@ -13,31 +13,33 @@ public:
     { 
         // Code here
         int n=nums.size();
-        int *dp=new int[n];
         
         
+        int dp[n];
         dp[n-1]=0;
         
         for(int i=n-2;i>=0;i--){
-            int cl=-1;
-            int cost=0;
+            int curr=-1;
             dp[i]=INT_MAX;
-            
             for(int j=i;j<n;j++){
-                cl+=nums[j]+1;
-                if(cl>k){
+                curr+=nums[j]+1;
+                if(curr>k){
                     break;
                 }
-               if(j==n-1){
-                   cost=0;
-                }
-                else{
-                cost =((k-cl)*(k-cl))+dp[j+1];
+                int cost=0;
+                if(j==n-1){
+                    cost=0;
+                }else{
+                    cost=(k-curr)*(k-curr)+dp[j+1];    
                 }
                 
+                
+                
                 dp[i]=min(dp[i],cost);
-                 
+                
+                
             }
+            
         }
         
         return dp[0];
