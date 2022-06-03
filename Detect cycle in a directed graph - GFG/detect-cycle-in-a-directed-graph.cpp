@@ -6,43 +6,46 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    bool dfs(vector<int> adj[], int node,vector<bool>& vis,vector<bool>& dfsVis){
-        vis[node]=true;
-        dfsVis[node]=true;
-        
-        for(int j:adj[node]){
-            if(!vis[j]){
-                if(dfs(adj,j,vis,dfsVis)){
-                    return true;
-                }
-            }else if(dfsVis[j]){
-                return true;
-            }
-        }
-        
-        dfsVis[node]=false;
-        return false;
-        
-        
-    }
-    
-    
+    void deg(vector<int>adj[],int n,vector<int>& indeg){
+	    for(int i=0;i<n;i++){
+	        for(int j:adj[i]){
+	            indeg[j]++;
+	        }
+	    }
+	}
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        vector<bool>vis(V+1,false);
-        vector<bool>dfsVis(V+1,false);
-        
-        
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(dfs(adj,i,vis,dfsVis)){
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-        
+        vector<int>indeg(V+1,0);
+	    deg(adj,V,indeg);
+	    int count=0;
+	    
+	    queue<int>q;
+	    for(int i=0;i<V;i++){
+	        if(indeg[i]==0){
+	            q.push(i);
+	        }
+	    }
+	    
+	    while(!q.empty()){
+	        int f=q.front();
+	        q.pop();
+	        
+	        count++;
+	        
+	        for(int j:adj[f]){
+	            indeg[j]--;
+	            
+	            if(indeg[j]==0){
+	                q.push(j);
+	            }
+	        }
+	    }
+	    
+	    
+	    if(count==V){
+	        return false;
+	    }
+	    return true;
     }
 };
 
