@@ -24,10 +24,10 @@ public:
         vector<int>a;
         
         while(!q.empty()){
-            TreeNode* fNode=q.front();
+            TreeNode* f=q.front();
             q.pop();
             
-            if(fNode==NULL){
+            if(f==NULL){
                 if(q.empty()){
                     ans.push_back(a);
                     return ans;
@@ -39,15 +39,13 @@ public:
                 }
             }
             
-            a.push_back(fNode->val);
-            
-            if(fNode->left!=NULL){
-                q.push(fNode->left);
+            a.push_back(f->val);
+            if(f->left!=NULL){
+                q.push(f->left);
             }
-            if(fNode->right!=NULL){
-                q.push(fNode->right);
+            if(f->right!=NULL){
+                q.push(f->right);
             }
-            
             
         }
         
