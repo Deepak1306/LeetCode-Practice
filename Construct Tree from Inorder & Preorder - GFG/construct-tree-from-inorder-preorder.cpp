@@ -42,7 +42,7 @@ struct Node
 class Solution{
     public:
     Node* helper(int in[],int pre[],int i,int ei,int p,int ep,map<int,int>&m){
-      if(p<0 || p>ep){
+      if(i>ei || p>ep){
           return NULL;
       }
       Node*root=new Node(pre[p]);
