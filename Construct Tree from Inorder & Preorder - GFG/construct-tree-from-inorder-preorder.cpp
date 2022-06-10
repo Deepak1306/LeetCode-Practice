@@ -41,26 +41,36 @@ struct Node
 */
 class Solution{
     public:
-Node* makeBT(int in[],int pre[],int li,int hi,int lp,int hp,map<int,int> &mpp){
-        if(lp<0 || lp>hp)return NULL;
-    
-        int rootData=pre[lp];
-        Node* root=new Node(rootData);
-        int index = mpp[rootData];
-        int numLeft=lp+index-li;
-        root->left=makeBT(in,pre,li,index-1,lp+1,numLeft,mpp);
-        root->right=makeBT(in,pre,index+1,hi,numLeft+1,hp,mpp);
-        return root;
-    
+    Node* helper(int in[],int pre[],int i,int ei,int p,int ep,map<int,int>&m){
+      if(p<0 || p>ep){
+          return NULL;
+      }
+      Node*root=new Node(pre[p]);
+      
+      int k=m[pre[p]];
+      
+       int x=p+k-i;
+      
+      root->left=helper(in,pre,i,k-1,p+1,x,m);
+      root->right=helper(in,pre,k+1,ei,x+1,ep,m);
+      
+      return root;
+      
+          
     }
+    
     Node* buildTree(int in[],int pre[], int n)
     {
-        map<int,int> mpp;
+        // Code here
+        map<int,int>m;
         for(int i=0;i<n;i++){
-            mpp[in[i]]=i;
+            m[in[i]]=i;
         }
-        return makeBT(in,pre,0,n-1,0,n-1,mpp);
-    }};
+        
+        
+        return helper(in,pre,0,n-1,0,n-1,m);
+    }
+};
 
 // { Driver Code Starts.
 int main()
