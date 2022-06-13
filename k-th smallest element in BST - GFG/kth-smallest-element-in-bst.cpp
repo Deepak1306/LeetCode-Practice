@@ -94,32 +94,34 @@ struct Node {
 class Solution {
   public:
     // Return the Kth smallest element in the given BST
-    void solve(Node* root, vector<int> & ans){
+    void solve(Node*root, int & ans, int &in,int k){
         if(root==NULL){
             return ;
-        
         }
         
-        solve(root->left,ans);
-        ans.push_back(root->data);
-        solve(root->right,ans);
-    
+        solve(root->left,ans,in,k);
         
+        if(in>k){
+            return ;
+        }
+        if(in<=k){
+            ans=root->data;
+        }
+        in++;
+        solve(root->right,ans,in,k);
     }
     
     int KthSmallestElement(Node *root, int K) {
         // add code here.
-       vector<int>ans;
-       
-        solve(root,ans);
+        int ans=-1;
+        int in=1;
         
-        int n=ans.size();
-        if(K>n){
+        solve(root,ans,in,K);
+        if(in<=K){
             return -1;
         }
         
-        return ans[K-1];
-        
+        return ans;
     }
 };
 
