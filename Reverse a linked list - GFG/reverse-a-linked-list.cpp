@@ -41,11 +41,19 @@ class Solution
             return head;
         }
         
-        Node *temp=head->next;
-        Node*x =reverseList(head->next);
-        temp->next=head;
-        head->next=NULL;
-        return x;
+        Node*curr=head;
+        Node*prev=NULL;
+        Node*fwd=NULL;
+        
+        while(curr!=NULL){
+            fwd=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=fwd;
+        }
+        
+        return prev;
+
         
     }
     
