@@ -44,26 +44,26 @@ class Solution
     Node * removeDuplicates( Node *head) 
     {
      // your code goes here
+     
+     Node*temp=head;
+     Node*prev=NULL;
      unordered_map<int,int>m;
      
-     Node*curr=head;
-     Node*prev=NULL;
-     while(curr!=NULL){
-         if(m[curr->data]>0){
-             Node* fwd=curr->next;
-             prev->next=fwd;
-             curr=fwd;
-             continue;
+     while(temp!=NULL){
+         if(m.find(temp->data)!=m.end()){
+             prev->next=temp->next;
+             temp=prev->next;
+         }else{
+             m[temp->data]=1;
+             prev=temp;
+             temp=temp->next;
          }
-         else{
-             m[curr->data]=1;
-         }
-         prev=curr;
-         curr=curr->next;
+         
      }
      
-     
      return head;
+     
+     
      
     }
 };
