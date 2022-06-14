@@ -81,17 +81,36 @@ class Solution
     {
         // code here
         // just remove the loop without losing any nodes
-        unordered_map<Node*,int>m;
+       Node*slow=head;
+       Node*fast=head;
+       
+       while(fast!=NULL && fast->next!=NULL){
+           slow=slow->next;
+           fast=fast->next->next;
+           
+           if(slow==fast){
+               break;
+           }
+       }
+       
+       if(slow!=fast){
+           return ;
+       }
+       
+       slow=head;
+       
+       while(slow!=fast){
+           slow=slow->next;
+           fast=fast->next;
+       }
+       Node*temp=slow;
+       
+       while(temp->next!=slow){
+           temp=temp->next;
+       }
+        temp->next=NULL;
         
-        while(head!=NULL){
-            if(m.find(head->next)!=m.end()){
-                head->next=NULL;
-                return;
-            }
-            m[head]=1;
-            head=head->next;
-        }
-        
+        return ;
         
     }
 };
