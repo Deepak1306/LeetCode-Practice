@@ -126,7 +126,7 @@ struct Node
 class Solution
 {
 public:
-    Node*succ(Node*root, int k){
+    Node*suc(Node*root,int k){
         if(root==NULL){
             return NULL;
         }
@@ -143,25 +143,28 @@ public:
             }
         }
         
+        
         return succ;
-        
-        
     }
-
-    void helper(Node* root,Node* &node){
+    
+    void helper(Node*root,Node*node){
         if(node==NULL){
-            return;
+            return ;
         }
-        node->next=succ(root,node->data);
+        node->next=suc(root,node->data);
         helper(root,node->left);
         helper(root,node->right);
         
+        
     }
-
+    
+    
     void populateNext(Node *root)
     {
         //code here
         helper(root,root);
+        
+        
     }
 };
 
