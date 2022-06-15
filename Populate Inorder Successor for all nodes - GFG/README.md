@@ -1,5 +1,5 @@
 # Populate Inorder Successor for all nodes
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a Binary Tree, write a function to populate next pointer for all nodes.&nbsp;The next pointer for every node should be set to point to inorder successor.</span></p>
 
