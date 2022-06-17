@@ -49,24 +49,36 @@ public:
 
 /* The below method sorts the stack s 
 you are required to complete the below method */
+void sortHelp(stack<int>&s , int a){
+    if(s.empty()){
+        s.push(a);
+        return ;
+    }
+    
+    if(a>=s.top()){
+        s.push(a);
+        return ;
+    }
+    
+    int x=s.top();
+    s.pop();
+    sortHelp(s,a);
+    s.push(x);
+}
+
+
 void SortedStack :: sort()
 {
    //Your code here
-   vector<int>ans;
-   while(!s.empty()){
-       ans.push_back(s.top());
-       s.pop();
+   if(s.empty()){
+       return ;
    }
    
-   std::sort(ans.begin(),ans.end());
-   
-   int i=0;
-   
-   while(i<ans.size()){
-       s.push(ans[i]);
-       i++;
-   }
-   
+   int a=s.top();
+   s.pop();
+      sort();
+   sortHelp(s,a);
+
    
    
 }
