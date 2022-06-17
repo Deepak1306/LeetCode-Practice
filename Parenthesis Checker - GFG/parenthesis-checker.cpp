@@ -10,39 +10,39 @@ class Solution
 {
     public:
     //Function to check if brackets are balanced or not.
-    bool arePairs(char open, char close){
-        if(open=='(' && close==')'){
-            return true;
-        }else if(open=='[' && close==']'){
-            return true;
-        }else if(open=='{' && close=='}'){
-            return true;
-        }else{
-            return false;
-        }
-    }
     bool ispar(string x)
     {
         // Your code here
-        int n=x.length();
-        stack<char>st;
-        for(int i=0;i<n;i++){
+        stack<char>s;
+        
+        for(int i=0;i<x.length();i++){
             if(x[i]=='(' || x[i]=='[' || x[i]=='{'){
-                st.push(x[i]);
-            }else{
-                if(st.empty() || !arePairs(st.top(),x[i])){
+                s.push(x[i]);
+            }else if(x[i]==')'){
+                if(s.empty() || s.top()!='('){
                     return false;
                 }
                 
-                st.pop();
+                s.pop();
+            }else if(x[i]==']'){
+                if(s.empty()||s.top()!='['){
+                    return false;
+                }
+                
+                s.pop();
+            }else if(x[i]=='}'){
+                if(s.empty() || s.top()!='{'){
+                    return false;
+                }
+                s.pop();
             }
         }
         
-        if(!st.empty()){
+        if(!s.empty()){
             return false;
         }
-        return true;
         
+        return true;
     }
 
 };
