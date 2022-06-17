@@ -10,23 +10,10 @@ using namespace std;
 
 class Solution{
 public:
-  void solve(stack<int>&st){
-      if(st.empty()){
-          return ;
-      }
-      int c=st.top();
-      st.pop();
-      
-      solve(st);
-      st.push(c);
-      
-  }
+  
 
     vector<int> Reverse(stack<int> St){
         vector<int>ans;
-        
-        solve(St);
-        
         while(!St.empty()){
             ans.push_back(St.top());
             St.pop();
