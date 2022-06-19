@@ -6,43 +6,37 @@ using namespace std;
 
  // } Driver Code Ends
 // User function Template for C++
-
+int dp[101][101];
 class Solution{
 public:
-
-    int helper(int arr[], int i, int j, vector<vector<int>>&dp){
-      
-        if(i>=j){
+    int solve(int arr[], int i, int j){
+        if(i==j){
             return 0;
         }
-        
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
         
         int ans=INT_MAX;
-        
         for(int k=i;k<j;k++){
-            int a=helper(arr,i,k,dp);
-            int b=helper(arr,k+1,j,dp);
+            int a=solve(arr,i,k);
+            int b=solve(arr,k+1,j);
             
             int count=arr[i-1]*arr[k]*arr[j];
+            ans=min(ans,count+a+b);
             
-            count+=a+b;
-            
-            ans=min(ans,count);
         }
         
         
         return dp[i][j]=ans;
+        
     }
-     
+
     int matrixMultiplication(int N, int arr[])
     {
         // code here
-        vector<vector<int>>dp(N,vector<int>(N,-1));
-        
-        return helper(arr,1,N-1,dp);
+         memset(dp,-1,sizeof(dp));
+         solve(arr,1,N-1);
     }
 };
 
