@@ -23,52 +23,47 @@ struct Job
 };
 */
 
+bool compare(Job a1,Job a2){
+    return a1.profit>a2.profit;
+}
 class Solution 
 {
     public:
     //Function to find the maximum profit and the number of jobs done.
-   static bool compare(Job a1, Job a2){
-        return a1.profit>a2.profit;
-    }
-    
     vector<int> JobScheduling(Job arr[], int n) 
     { 
         // your code here
-        int max=0;
-        
+        int d=0;
         for(int i=0;i<n;i++){
-            if(arr[i].dead>max){
-                max=arr[i].dead;
+            if(d<arr[i].dead){
+                d=arr[i].dead;
             }
         }
         
-        
-        int dp[max+1];
-        
-        memset(dp,-1,sizeof(dp));
-        
         sort(arr,arr+n,compare);
         
-        int profit=0;
+        
+        int ans=0;
         int count=0;
+        int dp[d+1];
+        memset(dp,-1,sizeof(dp));
+        
         for(int i=0;i<n;i++){
-            
-          for(int j=arr[i].dead;j>=1;j--){
+            for(int j=arr[i].dead;j>=1;j--){
               if(dp[j]==-1){
                   dp[j]=i;
-                  profit+=arr[i].profit;
+                  ans+=arr[i].profit;
                   count++;
                   break;
               }
-          }    
-        
+                
+            }
         }
         
-        vector<int>ans;
-        ans.push_back(count);
-        ans.push_back(profit);
-        return ans;
-        
+        vector<int>a;
+        a.push_back(count);
+        a.push_back(ans);
+        return a;
     } 
 };
 
