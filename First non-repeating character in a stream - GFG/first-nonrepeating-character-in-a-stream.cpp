@@ -8,10 +8,9 @@ class Solution {
 		string FirstNonRepeating(string A){
 		    // Code here
 		    map<char,int>m;
+		    
 		    queue<char>q;
-		    
 		    string ans="";
-		    
 		    for(int i=0;i<A.length();i++){
 		        m[A[i]]++;
 		        q.push(A[i]);
@@ -23,16 +22,16 @@ class Solution {
 		                ans+=q.front();
 		                break;
 		            }
+		            
 		        }
 		        
 		        if(q.empty()){
 		            ans+='#';
 		        }
-		        
-		        
 		    }
 		    
 		    return ans;
+		    
 		}
 
 };
