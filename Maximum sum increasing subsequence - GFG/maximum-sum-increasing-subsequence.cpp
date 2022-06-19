@@ -11,25 +11,24 @@ class Solution{
 	{  
 	    // Your code goes here
 	    int dp[n];
-	    int ans=arr[0];
 	    dp[0]=arr[0];
+	    int ans=arr[0];
 	    
 	    for(int i=1;i<n;i++){
 	        dp[i]=arr[i];
 	        for(int j=0;j<i;j++){
-	            if(arr[j]>=arr[i]){
-	                ans=max(ans,dp[i]);
+	            if(arr[i]<=arr[j]){
 	                continue;
-	            }else{
-	                dp[i]=max(dp[i],arr[i]+dp[j]);
 	            }
 	            
-	            ans=max(ans,dp[i]);
+	            dp[i]=max(dp[i],arr[i]+dp[j]);
+	            
 	        }
+	        
+	        ans=max(dp[i],ans);
 	    }
 	    
 	    return ans;
-	    
 	}  
 };
 
