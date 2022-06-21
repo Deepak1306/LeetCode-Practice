@@ -32,17 +32,15 @@ public:
                 break;
             }
             
-            int m=v[i].second;
-            int j=0;
-            while(j<m){
-                if(k<v[i].first){
-                    break;
-                }
-                
-                count++;
-                k=k-v[i].first;
-                j++;
+            int temp=k/v[i].first;
+            if(temp<v[i].second){
+                count+=temp;
+                k-=temp*v[i].first;
+            }else{
+                count+=v[i].second;
+                k-=v[i].second*v[i].first;
             }
+            
         }
         
         return count;
