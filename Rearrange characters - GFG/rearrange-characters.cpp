@@ -8,63 +8,62 @@ class Solution
 {
     public:
     
-    char maxCount(vector<int>count){
-        char ch;
-        
-        int max=0;
-        for(int i=0;i<26;i++){
-            if(count[i]>max){
-                max=count[i];
-                ch=i+'a';
-            }
+    char chara(vector<int>count){
+    int c=count[0];
+    char ch=0+'a';
+    
+    for(int i=1;i<26;i++){
+        if(count[i]>c){
+            c=count[i];
+            ch=i+'a';
         }
-        
-        return ch;
     }
     
-    string rearrangeString(string str)
+    return ch;
+    
+}
+    
+    string rearrangeString(string s)
     {
         //code here
-        int n=str.length();
-        if(n==0){
-            return "";
+       int n=s.length();
+   
+    
+    vector<int>count(26,0);
+    
+    for(int i=0;i<n;i++){
+        int c=s[i]-'a';
+        count[c]++;
+    }
+    
+    char ch=chara(count);
+    int maxC=count[ch-'a'];
+    
+    
+    if(maxC>(n+1)/2){
+        return "-1";
+    }
+    
+    string str(n,' ');
+    int in=0;
+    while(maxC>0){
+        str[in]=ch;
+        maxC--;
+        in+=2;
+    }
+    count[ch-'a']=0;
+    
+    for(int i=0;i<26;i++){
+        while(count[i]>0){
+            in=(in>=n)?1:in;
+            str[in]=i+'a';
+            in+=2;
+            count[i]--;
+            
         }
-        
-        vector<int>count(26,0);
-        
-        for(int i=0;i<n;i++){
-            int j=str[i]-'a';
-            count[j]++;
-        }
-        
-        char maxCh=maxCount(count);
-        int maxC=count[maxCh-'a'];
-        
-        if(maxC>(n+1)/2){
-            return "-1";
-        }
-        string res(n,' ');
-        
-        int in=0;
-        while(maxC>0){
-            res[in]=maxCh;
-            maxC--;
-            in=in+2;
-        }
-        
-        count[maxCh-'a']=0;
-        
-        for(int i=0;i<26;i++){
-            while(count[i]>0){
-                in=(in>=n)?1:in;
-                res[in]=i+'a';
-                in=in+2;
-                count[i]--;
-            }
-        }
-        
-        return res;
-        
+    }
+    
+    return str;
     }
     
 };
