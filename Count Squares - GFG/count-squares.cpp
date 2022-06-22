@@ -7,13 +7,15 @@ class Solution {
   public:
     int countSquares(int N) {
         // code here
-        int a=sqrt(N);
-        int b=pow(a,2);
         
-        if(b==N){
-            return a-1;
+        int i=1;
+        int count=0;
+        while(i*i<N){
+            count++;
+            i++;
         }
-        return a;
+        
+        return count;
     }
 };
 
