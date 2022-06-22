@@ -13,26 +13,27 @@ class Solution
 	{
 	    // Code here
 	    int n=nums.size();
-	    vector<pair<int,int>>v;
+	    vector<pair<int,int>>v(n);
+	    
 	    for(int i=0;i<n;i++){
-	        v.push_back({nums[i],i});
+	        v[i]={nums[i],i};
 	    }
+	    
 	    sort(v.begin(),v.end());
 	    
-	    int i=0;
-	    int ans=0;
-	    
-	    
-	    while(i<n){
-	        if(i==v[i].second){
-	            i++;
+	    int count=0;
+	    for(int i=0;i<n;i++){
+	        if(v[i].second==i){
 	            continue;
 	        }else{
 	            swap(v[i],v[v[i].second]);
-	            ans++;
+	            count++;
+	            i--;
 	        }
 	    }
-	    return ans;
+	    
+	    return count;
+	    
 	}
 };
 
