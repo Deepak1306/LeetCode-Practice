@@ -6,30 +6,50 @@ using namespace std;
 vector<int> find(int arr[], int n , int x )
 {
     // code here
+    vector<int>ans;
+    
     int i=0;
     int j=n-1;
     
-    vector<int>ans;
-    while(i<n){
-        if(arr[i]==x){
-            ans.push_back(i);
-            break;
+    
+    int k=-1;
+    int m=-1;
+    
+    while(i<=j){
+        int mid=i+(j-i)/2;
+        
+        if(arr[mid]==x){
+            k=mid;
+            j=mid-1;
+        }else if(arr[mid]>x){
+            j=mid-1;
+        }else{
+            i=mid+1;
         }
-        i++;
+        
     }
     
-    while(j>=0){
-        if(arr[j]==x){
-            ans.push_back(j);
-            break;
+    i=0;
+    j=n-1;
+    while(i<=j){
+        int mid=i+(j-i)/2;
+        
+        if(arr[mid]==x){
+            m=mid;
+            i=mid+1;
+        }else if(arr[mid]>x){
+            j=mid-1;
+        }else{
+            i=mid+1;
         }
-        j--;
     }
-    if(ans.size()==0){
-        ans.push_back(-1);
-        ans.push_back(-1);
-    }
+    
+    ans.push_back(k);
+    ans.push_back(m);
+    
     return ans;
+    
+    
 }
 
 // { Driver Code Starts.
