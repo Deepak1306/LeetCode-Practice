@@ -41,11 +41,6 @@ public:
             }
             
         }
-        
-        if(s.length()==0){
-            return "-1";
-        }
-        
         return s;
         
     }
