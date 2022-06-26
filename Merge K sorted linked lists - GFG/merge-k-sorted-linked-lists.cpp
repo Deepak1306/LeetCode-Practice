@@ -59,27 +59,25 @@ class Solution{
            }
            
            while(!pq.empty()){
-               pair<int,Node*>p=pq.top();
+               Node*x=pq.top().second;
                pq.pop();
                
                if(head==NULL){
-                   head=p.second;
-                   tail=head;
+                   head=x;
+                   tail=x;
                }else{
-                   tail->next=p.second;
-                   tail=p.second;
+                   tail->next=x;
+                   tail=x;
                }
                
-               
-               if(p.second->next!=NULL){
-                   pq.push({p.second->next->data,p.second->next});
+               if(x->next!=NULL){
+                   pq.push({x->next->data,x->next});
                }
-               
                
            }
            
-           return head;
            
+           return head;
     }
 };
 
