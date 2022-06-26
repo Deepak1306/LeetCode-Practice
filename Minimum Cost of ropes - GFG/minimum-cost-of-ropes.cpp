@@ -15,22 +15,20 @@ class Solution
         for(int i=0;i<n;i++){
             pq.push(arr[i]);
         }
-        
-        long long sum=0;
-        
+        long long ans=0;
         while(pq.size()>1){
             long long a=pq.top();
             pq.pop();
-            long long  b=pq.top();
+            long long b=pq.top();
             pq.pop();
             
-            sum+=a+b;
-            
+            ans+=a+b;
             pq.push(a+b);
+            
             
         }
         
-        return sum;
+        return ans;
         
         
     }
