@@ -11,38 +11,30 @@ public:
 	{
 	    // Your code goes here
 	    int n=S.length();
+	    int dp[n];
 	    
-	    int zeros=0;
-	    int ones=0;
-	    
-	    vector<int>v(n);
-	    for(int i=0;i<S.length();i++){
+	    for(int i=0;i<n;i++){
 	        if(S[i]=='0'){
-	            v[i]=1;
+	            dp[i]=1;
 	        }else{
-	            v[i]=-1;
+	            dp[i]=-1;
 	        }
 	    }
 	    
-	    int ans=v[0];
-	    int sum=v[0];
+	    int ans=dp[0];
+	    int currSum=dp[0];
+	    
 	    for(int i=1;i<n;i++){
-	        if(sum+v[i]<v[i]){
-	            sum=v[i];
-	        }
-	        else{
-	            sum+=v[i];
-	        }
-	        
-	        ans=max(sum,ans);
-	        
+	      if(currSum<dp[i]){
+	         currSum=dp[i];
+	      }else{
+	          currSum+=dp[i];
+	      }  
+	       ans=max(ans,currSum);
 	    }
-	   
-	    
 	    
 	    
 	    return ans;
-	    
 	    
 	}
 };
