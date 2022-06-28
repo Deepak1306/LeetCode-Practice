@@ -9,25 +9,20 @@ class Solution {
   public:
     long long int countBT(int h) { 
         // code here
-        
-        int mod=1e9+7;
-        
         long long int dp[h+1];
-        
         dp[0]=1;
         dp[1]=1;
         
+        int mod=1e9+7;
+        
         for(int i=2;i<=h;i++){
-            long long int a=(dp[i-1]*dp[i-2]*2)%mod;
-            long long int b=(dp[i-1]*dp[i-1])%mod;
+            long long int a=(dp[i-1]*dp[i-1])%mod;
+            long long int b=2*(dp[i-1]*dp[i-2])%mod;
             
             dp[i]=a+b;
         }
         
         return dp[h]%mod;
-        
-        
-        
         
     }
 };
