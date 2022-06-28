@@ -16,22 +16,23 @@ class Solution{
   int carAssembly(vector<vector<int>>& a, vector<vector<int>>& T, vector<int>& e, vector<int>& x){
       //Code Here
       int n=a[0].size();
-      
       int dp1[n];
       int dp2[n];
-      
-      dp1[0]=a[0][0]+e[0];
-      dp2[0]=a[1][0]+e[1];
+      dp1[0]=e[0]+a[0][0];
+      dp2[0]=e[1]+a[1][0];
       
       
       for(int i=1;i<n;i++){
-          
-          dp1[i]=min(dp1[i-1]+a[0][i],dp2[i-1]+T[1][i]+a[0][i]);
-          dp2[i]=min(dp2[i-1]+a[1][i],dp1[i-1]+T[0][i]+a[1][i]);
-          
+          dp1[i]=min(dp1[i-1]+a[0][i], dp2[i-1]+a[0][i]+T[1][i]);
+          dp2[i]=min(dp2[i-1]+a[1][i], dp1[i-1]+a[1][i]+T[0][i]);
       }
       
+      
       return min(dp1[n-1]+x[0],dp2[n-1]+x[1]);
+      
+      
+      
+      
       
   }
 };
