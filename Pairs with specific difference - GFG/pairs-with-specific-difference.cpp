@@ -8,27 +8,27 @@ class Solution{
     public:
     int maxSumPairWithDifferenceLessThanK(int arr[], int N, int K)
     {
-        // Your code goes here
+        // Your code goes here 
+        
         sort(arr,arr+N);
         
-        int i=N-1;
-        int ans=0;
+        int i=N-2;
+        int j=N-1;
         
-        while(i>0){
-           int x=arr[i]-arr[i-1];
-           
-           if(x<K){
-               ans+=arr[i]+arr[i-1];
-               i-=2;
-           }
-           else{
-               i--;
-           }
-           
+        int sum=0;
+        
+        while(i>=0 && j>=0){
+            if(arr[j]-arr[i]<K){
+                sum+=arr[i]+arr[j];
+                j=j-2;
+                i=i-2;
+            }else{
+                i--;
+                j--;
+            }
         }
         
-        return ans;
-        
+        return sum;
         
     }
 };
