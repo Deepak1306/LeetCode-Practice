@@ -5,22 +5,23 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 	public:
-		int AlternatingaMaxLength(vector<int>&arr){
+		int AlternatingaMaxLength(vector<int>&nums){
 		    // Code here
-		    int n=arr.size();
 		    
-		    int inc=1;
-		    int dec=1;
+		    int l1=1;
+		    int l2=1;
 		    
-		    for(int i=1;i<n;i++){
-		        if(arr[i]>arr[i-1]){
-		            inc=dec+1;
-		        }else if(arr[i-1]>arr[i]){
-		            dec=inc+1;
-		        }
+		    for(int i=1;i<nums.size();i++){
+		        
+		       if(nums[i]>nums[i-1]){
+		           l1=l2+1;
+		       }else if(nums[i-1]>nums[i]){
+		           l2=l1+1;
+		       } 
+		        
 		    }
 		    
-		    return max(inc,dec);
+		    return max(l1,l2);
 		    
 		}
 
