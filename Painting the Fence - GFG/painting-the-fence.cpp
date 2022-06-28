@@ -9,32 +9,34 @@ class Solution{
     public:
     long long countWays(int n, int k){
         // code here
-        long long dp[3][n];
-        int mod=1e9+7;
         
+        long long dp[3][n+1];
+        int mod=1e9+7;
         if(n==1){
             return k;
         }
-    
-         
-        dp[0][1]=k;
-        dp[1][1]=k*(k-1);
-        dp[2][1]=dp[0][1]+dp[1][1];
         
-        for(int j=2;j<n;j++){
-            for(int i=0;i<3;i++){
-                if(i==0){
-                    dp[i][j]=dp[i+1][j-1]%mod;
-                }else if(i==1){
-                    dp[i][j]=(k-1)*(dp[i+1][j-1])%mod;
-                }else{
-                    dp[i][j]=(dp[i-1][j]+dp[i-2][j])%mod;
-                }
+        dp[0][1]=0;
+        dp[1][1]=k;
+        dp[2][1]=k;
+        
+        for(int i=2;i<=n;i++){
+            for(int j=0;j<3;j++){
+            
+            if(j==0){
+             dp[j][i]=dp[j+1][i-1]%mod;   
+            }else if(j==1){
+             dp[j][i]=((k-1)*dp[j+1][i-1])%mod;
+            }else{
+             dp[j][i]=(dp[j-1][i]+dp[j-2][i])%mod;    
             }
+                
+            }
+            
         }
         
+        return dp[2][n];
         
-        return dp[2][n-1]%mod;
         
     }
 };
