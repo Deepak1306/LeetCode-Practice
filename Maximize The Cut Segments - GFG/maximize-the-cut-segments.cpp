@@ -19,19 +19,20 @@ class Solution
         
         dp[0]=0;
         for(int i=0;i<=n;i++){
-            
             if(dp[i]==-1){
                 continue;
             }
             
-            if(x+i<=n){
+            if(i+x<=n){
                 dp[i+x]=max(dp[i+x],1+dp[i]);
             }
-            if(y+i<=n){
-                dp[i+y]=max(dp[i+y],1+dp[i]);
+            
+            if(i+y<=n){
+                dp[i+y]=max(dp[i+y],dp[i]+1);
             }
-            if(z+i<=n){
-                dp[i+z]=max(dp[i+z],1+dp[i]);
+            
+            if(i+z<=n){
+                dp[i+z]=max(dp[i+z],dp[i]+1);
             }
             
         }
@@ -39,6 +40,7 @@ class Solution
         if(dp[n]==-1){
             return 0;
         }
+        
         return dp[n];
         
     }
