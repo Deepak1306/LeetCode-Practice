@@ -6,30 +6,32 @@ using namespace std;
 class Solution{
 
 	public:
-	int findWinner(int N, int x, int y)
+	int findWinner(int N, int X, int Y)
 	{
 		// Your code goes here
-		if(x>y){
-		    swap(x,y);
+		if(X>Y){
+		    swap(X,Y);
 		}
 		int dp[N+1];
 		memset(dp,0,sizeof(dp));
 		
 		dp[1]=1;
-		dp[x]=1;
-		dp[y]=1;
+		dp[X]=1;
+		dp[Y]=1;
 		
 		for(int i=2;i<=N;i++){
-		    if(i<x){
+		    if(i<X){
 		        dp[i]=!dp[i-1];
-		    }else if(i<y){
-		        dp[i]=!(dp[i-1] && dp[i-x]);
+		    }else if(i<Y){
+		        dp[i]=!(dp[i-1] && dp[i-X]);
 		    }else{
-		        dp[i]=!(dp[i-1] && dp[i-x] && dp[i-y]);
+		        dp[i]=!(dp[i-1] && dp[i-X] && dp[i-Y]);
 		    }
 		}
 		
 		return dp[N];
+		
+		
 	}
 
 };
