@@ -11,34 +11,27 @@
  */
 class Solution {
 public:
-    
-    pair<int,int>helper(TreeNode* root){
-        pair<int,int>ans;
-        
+    int solve(TreeNode*root,int &ans){
         if(root==NULL){
-            ans.first=0;
-            ans.second=0;
-            return ans;
+            return 0;
         }
         
-        pair<int,int>left=helper(root->left);
-        pair<int,int>right=helper(root->right);
+        int left=solve(root->left,ans);
+        int right=solve(root->right,ans);
         
-        ans.first=max(left.first,right.first)+1;
-        int count=left.first+right.first;
         
-        ans.second=max(count,max(left.second,right.second));
+        int temp=1+max(left,right);
+        ans=max(ans,left+right);
+        return temp;
         
-        return ans;
     }
     
-    
     int diameterOfBinaryTree(TreeNode* root) {
-       if(root==NULL){
-           return 0;
-       }
+        int ans=INT_MIN;
         
-        return helper(root).second;
+        int count=solve(root,ans);
+        
+        return ans;
         
     }
 };
