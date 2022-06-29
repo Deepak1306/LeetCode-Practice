@@ -1,5 +1,5 @@
 # Water Connection Problem
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">There are n houses and p water pipes in Geek Colony. Every house has at most one pipe going into it and at most one pipe going out of it. Geek needs to install pairs of tanks and taps in the colony according to the following guidelines. &nbsp;<br>
 1. Every house with one outgoing pipe but no incoming pipe gets a tank on its roof.<br>
