@@ -95,38 +95,43 @@ Node* buildTree(string str)
 
 class Solution {
   public:
-  
-  
-  
     vector <int> bottomView(Node *root) {
         // Your Code Here
-        map<int,int>m;
+        vector<int>ans;
+        
+        if(root==NULL){
+            return ans;
+        }
+        
         queue<pair<Node*,int>>q;
+        
         q.push({root,0});
+        
+        map<int,int>m;
+        
         while(!q.empty()){
-            Node* f=q.front().first;
+            Node*x=q.front().first;
             int d=q.front().second;
-            
             q.pop();
             
-            m[d]=f->data;
+            m[d]=x->data;
             
-            if(f->left!=NULL){
-                q.push({f->left,d-1});
+            if(x->left){
+                q.push({x->left,d-1});
             }
-            
-            if(f->right!=NULL){
-                q.push({f->right,d+1});
+            if(x->right){
+                q.push({x->right,d+1});
             }
             
         }
         
-        vector<int>ans;
-        for(auto it:m){
-            ans.push_back(it.second);
+        for(auto i:m){
+            ans.push_back(i.second);
         }
         
-        return ans;
+        return  ans;
+        
+        
     }
 };
 
