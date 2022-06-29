@@ -6,49 +6,46 @@ using namespace std;
 class Solution
 {
     public:
-    int dfs(pair<int,int>adj[],int node,int& ans){
+    int dfs(pair<int,int>adj[],int node,int &ans){
         if(!adj[node].first){
             return node;
         }
         
         ans=min(ans,adj[node].second);
         return dfs(adj,adj[node].first,ans);
-        
     }
     
     vector<vector<int>> solve(int n,int p,vector<int> a,vector<int> b,vector<int> d)
     {
         // code here
         pair<int,int>adj[n+1];
-        
-        int indegree[n+1];
-        for(int i=0;i<=n;i++){
-            indegree[i]=0;
-        }
+        int indeg[n+1];
+        memset(indeg,0,sizeof(indeg));
         
         for(int i=0;i<p;i++){
-            adj[a[i]]={b[i],d[i]};
-            indegree[b[i]]++;
+            int u=a[i];
+            int v=b[i];
+            int w=d[i];
+            
+            adj[u]={v,w};
+            
+            indeg[v]++;
         }
-        
-        vector<vector<int>>sol;
+        vector<vector<int>>arr;
         
         for(int i=1;i<=n;i++){
-            if(indegree[i]==0 && adj[i].first){
+            if(indeg[i]==0 && adj[i].first){
+                int start=adj[i].first;
                 int ans=adj[i].second;
-                int src=adj[i].first;
                 
-                int end=dfs(adj,src,ans);
+                int end=dfs(adj,start,ans);
+                arr.push_back({i,end,ans});
                 
-                if(i!=end){
-                    sol.push_back({i,end,ans});
-                }
                 
             }
         }
         
-        return sol;
-        
+        return arr;
         
         
     }
