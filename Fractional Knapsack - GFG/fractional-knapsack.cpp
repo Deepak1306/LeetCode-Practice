@@ -17,30 +17,33 @@ struct Item{
 };
 */
 
-bool comp(Item a, Item b){
-    double i=double(a.value)/(double)a.weight;
-    double j=double(b.value)/(double)b.weight;
-    
-    return i>j;
-    
-}
+
 class Solution
 {
     public:
     //Function to get the maximum total value in the knapsack.
+    static bool comp(Item a, Item b){
+        double a1=(double)a.value/(double)a.weight;
+        double a2=(double)b.value/(double)b.weight;
+        
+        return a1>a2;
+    }
+    
+    
     double fractionalKnapsack(int W, Item arr[], int n)
     {
         // Your code here
-        
         sort(arr,arr+n,comp);
-        
         double ans=0;
+        
         for(int i=0;i<n;i++){
-            if(arr[i].weight<=W){
+            if(W>=arr[i].weight){
                 ans+=arr[i].value;
-                W=W-arr[i].weight;
+                W-=arr[i].weight;
             }else{
-                ans+=((double)arr[i].value/(double)arr[i].weight)*W;
+                double a=(double)arr[i].value/(double)arr[i].weight;
+                
+                ans+=a*W;
                 break;
             }
         }
