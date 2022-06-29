@@ -6,44 +6,44 @@ using namespace std;
 
  // } Driver Code Ends
 //User function Template for C++
-
+int dp[501][2001];
 class Solution {
 public:
+    
+    int solve(int i, int rem, vector<int>arr, int k){
+        if(i==arr.size()){
+            return 0;
+        }
+        
+        if(dp[i][rem]!=-1){
+            return dp[i][rem];
+        }
+        
+        int ans=INT_MAX;
+        
+        if(arr[i]>rem){
+            int count=(rem+1)*(rem+1)+solve(i+1,k-arr[i]-1,arr,k);
+            ans=min(ans,count);
+        }else{
+            int choice1=(rem+1)*(rem+1)+solve(i+1,k-arr[i]-1,arr,k);
+            int choice2=solve(i+1,rem-arr[i]-1,arr,k);
+            
+            ans=min(ans,min(choice1,choice2));
+        }
+        
+        return dp[i][rem]=ans;
+        
+        
+        
+        
+    }
+    
     int solveWordWrap(vector<int>nums, int k) 
     { 
         // Code here
-        int n=nums.size();
         
-        
-        int dp[n];
-        dp[n-1]=0;
-        
-        for(int i=n-2;i>=0;i--){
-            int curr=-1;
-            dp[i]=INT_MAX;
-            for(int j=i;j<n;j++){
-                curr+=nums[j]+1;
-                if(curr>k){
-                    break;
-                }
-                int cost=0;
-                if(j==n-1){
-                    cost=0;
-                }else{
-                    cost=(k-curr)*(k-curr)+dp[j+1];    
-                }
-                
-                
-                
-                dp[i]=min(dp[i],cost);
-                
-                
-            }
-            
-        }
-        
-        return dp[0];
-        
+        memset(dp,-1,sizeof(dp));
+        return solve(0,k,nums,k);
     } 
 };
 
