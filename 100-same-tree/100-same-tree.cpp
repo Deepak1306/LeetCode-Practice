@@ -14,16 +14,18 @@ public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
         if(p==NULL && q==NULL){
             return true;
-        }else if(p==NULL || q==NULL){
+        }else if(p==NULL){
             return false;
-        }else if(p->val != q->val){
+        }else if(q==NULL){
             return false;
         }
         
-        bool check1=isSameTree(p->left,q->left);
-        bool check2=isSameTree(p->right,q->right);
+        if(p->val!=q->val){
+            return false;
+        }
         
-        return check1 && check2;
+        return isSameTree(p->left,q->left) && isSameTree(p->right,q->right);
+        
         
         
     }
