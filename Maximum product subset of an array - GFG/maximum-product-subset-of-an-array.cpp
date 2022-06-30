@@ -9,48 +9,54 @@ using namespace std;
 class Solution{
     public:
     long long int findMaxProduct(vector<int>&a, int n){
-        //Write your code here
-        int mod=1e9+7;
+        //Write your code here  
+        
+        int minA=INT_MIN;
         
         if(n==1){
             return a[0];
         }
         
+        
         int neg=0;
         int zero=0;
         
-        long long int ans=1;
-        int maxN=INT_MIN;
         
-        for(int i=0;i<n;i++){
+        int mod=1e9+7;
+        long long int ans=1;
+        
+        for(int i=0;i<a.size();i++){
+            
             if(a[i]==0){
                 zero++;
                 continue;
-            }else if(a[i]<0){
-                neg++;
-                maxN=max(maxN,a[i]);
             }
             
-            ans=(ans*a[i])%mod;
+            ans*=a[i];
+            ans=ans%mod;
+            
+            if(a[i]<0){
+                neg++;
+                minA=max(minA,a[i]);
+            }
+            
+            
+            
+            
         }
         
-        
-        if(zero==n){
+        if(neg==1 && zero==n-1){
             return 0;
         }
-        if(neg==1 && neg+zero==n){
-            return 0;
-        }
-        if(neg%2!=0){
-            ans=ans/maxN;
+        
+        if(neg%2==0){
+            return ans%mod;
+        }else if(neg%2!=0){
+            return (ans/minA)%mod;
         }
         
-        return ans;
-  
         
     }
-    
-    
 };
 
 
