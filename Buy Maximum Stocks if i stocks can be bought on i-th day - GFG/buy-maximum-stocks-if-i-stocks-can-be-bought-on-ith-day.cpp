@@ -27,13 +27,18 @@ public:
         
         int count=0;
         for(int i=0;i<n;i++){
-            int a=v[i].first;
-            int b=v[i].second;
-            int j=0;
-            while(k>=a && j<b ){
-                count++;
-                j++;
-                k=k-a;
+            if(k<v[i].first){
+                break;
+            }
+            
+            int c=k/v[i].first;
+            
+            if(c>v[i].second){
+                count+=v[i].second;
+                k=k-(v[i].first*v[i].second);
+            }else{
+                count+=c;
+                k=k-(v[i].first*c);
             }
         }
         
