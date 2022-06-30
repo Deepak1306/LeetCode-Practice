@@ -11,49 +11,51 @@ using namespace std;
 class Solution{
 public:
     int maxEqualSum(int N1,int N2,int N3,vector<int> &S1,vector<int> &S2,vector<int> &S3){
-       int sum1=0;
-       int sum2=0;
-       int sum3=0;
-       
-        for(int i=0;i<N1;i++){
-            sum1+=S1[i];
-        }
-        
-        for(int i=0;i<N2;i++){
-            sum2+=S2[i];
-        }
-        
-        for(int i=0;i<N3;i++){
-            sum3+=S3[i];
-        }
-        
-       int i=0;
-       int j=0;
-       int k=0;
-       
-       while(i<N1 && j<N2 && k<N3){
-           if(sum1==sum2 && sum1==sum3){
-               return sum1;
-           }
-           
-           int minSum=min(sum1,min(sum2,sum3));
-           if(sum1>minSum){
-               sum1-=S1[i++];
-           }
-           
-           if(sum2>minSum){
-               sum2-=S2[j++];
-           }
-           
-           if(sum3>minSum){
-               sum3-=S3[k++];
-           }
-           
-           
-       }
-       
-       return 0;
-        
+     int x=0;
+     for(int i=0;i<N1;i++){
+         x+=S1[i];
+     }
+     
+     int y=0;
+     for(int j=0;j<N2;j++){
+         y+=S2[j];
+     }
+     
+     int z=0;
+     for(int k=0;k<N3;k++){
+         z+=S3[k];
+     }
+     
+     int i=0;
+     int j=0;
+     int k=0;
+     
+     while(x>0 && y>0 && z>0){
+         if(x==y && y==z){
+             return x;
+         }
+         
+         int m=min(x,min(z,y));
+         
+         if(x>m){
+             x-=S1[i];
+             i++;
+         }
+         
+         if(y>m){
+             y-=S2[j];
+             j++;
+         }
+         
+         if(z>m){
+             z-=S3[k];
+             k++;
+         }
+     }
+     
+     return 0;
+     
+     
         
     }
 };
