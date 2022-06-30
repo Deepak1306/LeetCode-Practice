@@ -11,44 +11,44 @@ class Solution {
 public:
     int minimumCostOfBreaking(vector<int> X, vector<int> Y, int M, int N){
         //Write your code here
-        int x=1;
-        int y=1;
-        
         sort(X.begin(),X.end());
         sort(Y.begin(),Y.end());
         
-        int total=0;
-        
         int i=X.size()-1;
-        int k=Y.size()-1;
+        int j=Y.size()-1;
         
-        while(i>=0 && k>=0){
-            if(X[i]<=Y[k]){
-                total+=Y[k]*x;
+        int x=1;
+        int y=1;
+        
+        int cost=0;
+        
+        while(i>=0 && j>=0){
+            if(Y[j]>=X[i]){
+                cost+=Y[j]*x;
                 y++;
-                k--;
+                j--;
             }else{
-                total+=X[i]*y;
+                cost+=X[i]*y;
                 x++;
                 i--;
             }
         }
         
-        while(k>=0){
-            total+=Y[k]*x;
-            k--;
-            y++;
-        }
-        
         while(i>=0){
-            total+=X[i]*y;
-            i--;
-            x++;
+                cost+=X[i]*y;
+                x++;
+                i--;
         }
         
-        return total;
+        while(j>=0){
+                cost+=Y[j]*x;
+                y++;
+                j--;
+            
+            
+        }
         
-        
+        return cost;
         
     }
 };
