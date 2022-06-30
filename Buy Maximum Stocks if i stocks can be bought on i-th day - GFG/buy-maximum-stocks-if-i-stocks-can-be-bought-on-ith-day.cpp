@@ -7,40 +7,34 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-    static bool comp(pair<int,int>a,pair<int,int>b){
+    static bool comp(pair<int,int>a, pair<int,int>b){
         if(a.first==b.first){
-            return a.second<b.second;
+            return a.second>b.second;
         }
         
         return a.first<b.first;
-    } 
+    }
 
     int buyMaximumProducts(int n, int k, int price[]){
         //Write your code here
-        
-        vector<pair<int,int>>v(n);
+        vector<pair<int,int>>v;
         
         for(int i=0;i<n;i++){
-            v[i]={price[i],i+1};
+            v.push_back({price[i],i+1});
         }
         
         sort(v.begin(),v.end(),comp);
         
         int count=0;
         for(int i=0;i<n;i++){
-            if(v[i].first>k){
-                break;
+            int a=v[i].first;
+            int b=v[i].second;
+            int j=0;
+            while(k>=a && j<b ){
+                count++;
+                j++;
+                k=k-a;
             }
-            
-            int temp=k/v[i].first;
-            if(temp<v[i].second){
-                count+=temp;
-                k-=temp*v[i].first;
-            }else{
-                count+=v[i].second;
-                k-=v[i].second*v[i].first;
-            }
-            
         }
         
         return count;
