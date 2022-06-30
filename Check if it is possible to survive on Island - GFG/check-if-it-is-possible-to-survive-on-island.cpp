@@ -11,30 +11,36 @@ class Solution{
 public:
     int minimumDays(int S, int N, int M){
         // code here
-        int days=0;
-        int count=0;
         
-        if(N<M || (N*6 <M*7 &&S>6)){
+        if(M>N){
             return -1;
         }
+        
+        if(M*7>N*6 && S>6){
+            return -1;
+        }
+        
+        
+        int count=0;
         int curr=0;
         
-        while(days<S){
+        while(S>0){
+            if(curr>=M){
+               curr-=M;
+               S--;
+               continue;
+                
+            }
             
+            count++;
+            S--;
+            curr+=N-M;
             
-            
-          if(curr<M){
-              count++;
-              curr+=N;
-          }
-          curr-=M;
-          days++;
-          
-          
         }
+        
+        
+        
         return count;
-        
-        
     }
 };
 
