@@ -10,41 +10,47 @@
  * };
  */
 class BSTIterator {
-public:
-    
-    stack<TreeNode*>st;  //stack -- O(h) Memory
+    TreeNode* node;
 
-void inorder(TreeNode* root){  //partial inorder i.e. pushing all left elements into stack for a root
-
-   if(root==NULL){
-		return;
-	}
-
-	st.push(root);
-
-	while(root->left!=NULL){  //pushing all left elements
-		st.push(root->left);
-		root=root->left;
-	}
-}
+    public:
+    void inorder(TreeNode* root,TreeNode* &tail){
+        if(root==NULL){
+            return ;
+        }
+        inorder(root->left,tail);
+        tail->right=root;
+        tail->left=NULL;
+        tail=tail->right;
+        inorder(root->right,tail);
+        
+    }
     
     BSTIterator(TreeNode* root) {
-        inorder(root);
+        TreeNode* temp=root;
+        
+        while(temp->left!=NULL){
+            temp=temp->left;
+        }
+        node= new TreeNode(temp->val-1);
+        TreeNode* tail=node;
+        inorder(root,tail);
+        
     }
     
     int next() {
-        TreeNode* top=st.top();  //top stores the topmost index 
-	st.pop();
-
-	if(top->right!=NULL){  //check if top has an element to it's right .. if it has, then call inorder
-		inorder(top->right);  //inorder will push all the left elements of top's right node
-	}
-
-	return top->val;  //return top-> value afterwards
+        if(node==NULL || node->right==NULL){
+            return -1;
+        }
+        node=node->right;
+        
+        return node->val;
     }
     
     bool hasNext() {
-        return !st.empty(); 
+        if(node==NULL || node->right==NULL){
+            return false;
+        }
+        return true;
     }
 };
 
