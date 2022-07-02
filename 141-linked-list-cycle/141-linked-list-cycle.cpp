@@ -13,24 +13,23 @@ public:
             return false;
         }
         
-        unordered_map<ListNode*,int>map;
+        ListNode* slow=head;
+        ListNode* fast=head;
         
-        ListNode*temp=head;
-        
-        while(temp!=NULL && map[temp]==0){
-            map[temp]=1;
-            temp=temp->next;
+        while(fast!=NULL){
+            slow=slow->next;
+            fast=fast->next?fast->next->next:NULL;
+            
+            if(slow==fast){
+                break;
+            }
         }
         
-        if(temp==NULL){
+        if(fast==NULL){
             return false;
         }
         
-        if(map[temp]==1){
-            return true;
-        }
-        
-        return false;
+        return true;
         
     }
 };
