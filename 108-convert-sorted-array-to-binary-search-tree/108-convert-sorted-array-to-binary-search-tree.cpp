@@ -11,27 +11,26 @@
  */
 class Solution {
 public:
-    TreeNode* helper(vector<int>& nums, int i , int j){
+    TreeNode* solve(vector<int>& nums , int i, int j){
         if(i>j){
             return NULL;
         }
-        else if(i==j){
-            TreeNode* b=new TreeNode(nums[i]);
-            return b; 
-        }
         
         int mid=i+(j-i)/2;
-        TreeNode* b=new TreeNode(nums[mid]);
+            
+        TreeNode*root=new TreeNode(nums[mid]);
         
-        b->left=helper(nums,i,mid-1);
-        b->right=helper(nums,mid+1,j);
+        root->left=solve(nums,i,mid-1);
+        root->right=solve(nums,mid+1,j);
         
-        return b;
+        return root;
+        
+        
     }
-    
     
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         
-        return helper(nums,0,nums.size()-1);
+        
+        return solve(nums,0,nums.size()-1);
     }
 };
