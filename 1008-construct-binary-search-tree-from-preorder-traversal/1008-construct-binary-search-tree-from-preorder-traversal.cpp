@@ -11,22 +11,37 @@
  */
 class Solution {
 public:
-    TreeNode* helper(vector<int>& preorder,int& in,int max){
-        if(in==preorder.size() || preorder[in]>=max){
+    TreeNode* solve(vector<int>& preorder, int sp,int ep,vector<int>& inorder,int si,int ei){
+        if(sp>ep || si>ei){
             return NULL;
         }
         
-        TreeNode*root=new TreeNode(preorder[in]);
-        in++;
-        root->left=helper(preorder,in,root->val);
-        root->right=helper(preorder,in,max);
+        TreeNode* root=new TreeNode(preorder[sp]);
+        int k;
+        for(int i=si;i<=ei;i++){
+            if(inorder[i]==preorder[sp]){
+              k=i;
+                break;
+            }
+        }
+        
+        int x=k-si+sp;
+        
+        root->left=solve(preorder,sp+1,x,inorder,si,k-1);
+        root->right=solve(preorder,x+1,ep,inorder,k+1,ei);
         
         return root;
         
-    }
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        int in=0;
-        return helper(preorder,in,INT_MAX);
         
-    } 
+    }
+    
+    
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        vector<int>inorder;
+        inorder.insert(inorder.end(),preorder.begin(),preorder.end());
+        
+        sort(inorder.begin(),inorder.end());
+        return solve(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1);
+        
+    }
 };
