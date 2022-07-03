@@ -17,40 +17,33 @@ public:
             return l1;
         }
         
-        ListNode*head=NULL;
-        ListNode*tail=NULL;
+        ListNode* head=new ListNode(0);
+        ListNode* tail=head;
         
-        int sum=0;
         int carry=0;
-        
         while(l1!=NULL || l2!=NULL){
-            int a=l1?l1->val:0;
-            int b=l2?l2->val:0;
+            int a=l1==NULL?0: l1->val;
+            int b=l2==NULL?0:l2->val;
             
-           sum=a + b + carry;
+            int sum=a+b+carry;
             carry=sum/10;
             sum=sum%10;
             
-            ListNode*newNode=new ListNode(sum);
-            if(!head){
-                head=newNode;
-                tail=newNode;
-            }else{
-                tail->next=newNode;
-                tail=newNode;
-            }
+            ListNode* newNode=new ListNode(sum);
+            tail->next=newNode;
+            tail=newNode;
             
             l1=l1?l1->next:NULL;
             l2=l2?l2->next:NULL;
         }
         
-        if(carry>0){
-            ListNode*newNode=new ListNode(carry);
+        if(carry!=0){
+            ListNode* newNode=new ListNode(carry);
             tail->next=newNode;
             tail=newNode;
         }
         
+        return head->next;
         
-        return head;
     }
 };
