@@ -1,51 +1,55 @@
 class Solution {
 public:
-    vector<int> mergeSort(vector<int>& nums1, vector<int>& nums2){
-        int n=nums1.size();
-        int m=nums2.size();
-        
-        vector<int>ans;
-        int i=0;
-        int j=0;
-        
-        while(i<n && j<m){
-            if(nums2[j]<nums1[i]){
-                ans.push_back(nums2[j]);
-                j++;
-            }else{
-                ans.push_back(nums1[i]);
-                i++;
-            }
-        }
-        
-        while(i<n){
-            ans.push_back(nums1[i]);
-            i++;
-        }
-        
-        while(j<m){
-            ans.push_back(nums2[j]);
-            j++;
-        }
-        
-        return ans;
+    double findMedianSortedArrays(vector<int>& A, vector<int>& B) {
+       int n=A.size();
+    int m=B.size();
+    
+    int i=0;
+    int j=0;
+    
+    int k=(m+n)/2;
+    
+    int curr=-1;
+    int prev=-1;
+    
+    int count=0;
+    
+    while(i<n && j<m && count<=k){
+       if(A[i]<=B[j]){
+           prev=curr;
+           curr=A[i];
+           i++;
+       }else{
+          prev=curr;
+          curr=B[j];
+          j++; 
+       }
+       count++;
     }
-    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int n=nums1.size();
-        int m=nums2.size();
+    
+    while(i<n && count<=k){
+        prev=curr;
+        curr=A[i];
+        i++;
+        count++;
+    }
+    
+    while(j<m && count<=k){
+        prev=curr;
+        curr=B[j];
+        j++;
+        count++;
+    }
+    
+    if((m+n)%2==0){
+        return (double)(curr+prev)/2;
+    }else{
+        return curr;
+    }
+    
+    
+       
         
-        vector<int> ans=mergeSort(nums1,nums2);
-        
-        int c=ans.size()-1;
-        if((n+m)%2==0){
-            
-            int a=ans[c/2];
-            int b=ans[c/2+1];
-            
-            return (double)(a+b)/2;
-        }else{
-           return (double)ans[(c)/2]; 
-        }
         
     }
 };
