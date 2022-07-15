@@ -10,60 +10,48 @@ using namespace std;
 
 class Solution{
     public:
-    bool isSafe(vector<vector<int>> &m, int x, int y,int n,vector<vector<bool>>&vis){
-        if((x>=0 && x<n) &&(y>=0 && y<n) && vis[x][y]==false && m[x][y]==1){
-            return true;
-        }else{
+    bool isValid(int i, int j,int n,vector<vector<int>> &m,vector<vector<bool>> vis){
+        if(i<0 || i>=n || j<0 || j>=n || m[i][j]==0 || vis[i][j]==true){
             return false;
-        }
+        } 
         
+        return true;
     }
     
-    void helper(vector<vector<int>> &m, int x, int y,int n, string out,vector<string>& ans,vector<vector<bool>>&vis){
-        if(x==n-1 && y==n-1){
-            ans.push_back(out);
+    void findPath(vector<vector<int>> &m, int n,vector<string>& ans,string s,int i,int j,vector<vector<bool>>& vis){
+        if(i==n-1 && j==n-1){
+            ans.push_back(s);
+            return ;
+        }else if(vis[i][j]==true || m[i][j]==0){
             return ;
         }
-        vis[x][y]=true;
-        if(isSafe(m,x-1,y,n,vis)){
-            out.push_back('U');
-            helper(m,x-1,y,n,out,ans,vis);
-            out.pop_back();
-        }
+        vis[i][j]=true;
         
-        if(isSafe(m,x+1,y,n,vis)){
-            out.push_back('D');
-            helper(m,x+1,y,n,out,ans,vis);
-            out.pop_back();
+        if(isValid(i-1,j,n,m,vis)){
+            findPath(m,n,ans,s+'U',i-1,j,vis);
+            vis[i-1][j]=false;
         }
-        if(isSafe(m,x,y-1,n,vis)){
-            out.push_back('L');
-            helper(m,x,y-1,n,out,ans,vis);
-            out.pop_back();
+        if(isValid(i,j-1,n,m,vis)){
+            findPath(m,n,ans,s+'L',i,j-1,vis);
+            vis[i][j-1]=false;
         }
-        if(isSafe(m,x,y+1,n,vis)){
-            out.push_back('R');
-            helper(m,x,y+1,n,out,ans,vis);
-            out.pop_back();
+        if(isValid(i+1,j,n,m,vis)){
+            findPath(m,n,ans,s+'D',i+1,j,vis);
+            vis[i+1][j]=false;
         }
-        
-        vis[x][y]=false;
-        
-        
+        if(isValid(i,j+1,n,m,vis)){
+            findPath(m,n,ans,s+'R',i,j+1,vis);
+            vis[i][j+1]=false;
+        }
     }
     
     vector<string> findPath(vector<vector<int>> &m, int n) {
         // Your code goes here
         vector<string>ans;
-        if(m[0][0]==0){
-            return ans;
-        }
-        
         vector<vector<bool>>vis(n,vector<bool>(n,false));
-        
-        helper(m,0,0,n,"",ans,vis);
-        
+        findPath(m,n,ans,"",0,0,vis);
         return ans;
+        
     }
 };
 
