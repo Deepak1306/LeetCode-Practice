@@ -1,35 +1,25 @@
 class Solution {
 public:
-    vector<vector<int>>ans;
-    void helper(vector<int>& candidates, int target,int in, int n, vector<int>& temp){
-      if(target==0){
-          ans.push_back(temp);
-          return;
-      }  
-      if(in==n){
-          return;
-      }
-     if(target<0){
-        return;
-     }
-       temp.push_back(candidates[in]);
-        helper(candidates,target-candidates[in],in,n,temp);
-        temp.pop_back();
-       
-        helper(candidates,target,in+1,n,temp);
+    void solve(vector<int>& arr, int k,vector<vector<int>>& ans, vector<int>a,int i){
+        if(k==0){
+           ans.push_back(a);
+            return ;
+        }
+        else if(i==arr.size() || k<0){
+            return ;
+        }
         
-        
-        return ;
-        
+        solve(arr,k,ans,a,i+1);
+        a.push_back(arr[i]);
+        solve(arr,k-arr[i],ans,a,i);
+        a.pop_back();
     }
-
+    
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>a;
+        solve(candidates,target,ans,a,0);
         
-        vector<int>temp;
-        int n=candidates.size();
-        
-        helper(candidates,target,0,n,temp);
         return ans;
-        
     }
 };
