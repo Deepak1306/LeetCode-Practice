@@ -7,14 +7,16 @@ public:
         if(m==0){
             return 0;
         }
+        int i=0;
+        int j=m-1;
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<=i;j++){
-                string s=haystack.substr(j,i-j+1);
-                if(s==needle){
-                    return j;
-                }
+        while(j<n){
+            string s=haystack.substr(i,j-i+1);
+            if(s==needle){
+                return i;
             }
+            j++;
+            i++;
         }
         
         return -1;
