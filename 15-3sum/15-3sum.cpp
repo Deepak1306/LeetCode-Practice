@@ -13,20 +13,20 @@ public:
         
         
         for(int k=0;k<n-2;k++){
+            int c=0-nums[k];
             int i=k+1;
             int j=n-1;
             
             while(i<j){
-                int sum=nums[i]+nums[j]+nums[k];
                 
-                if(sum==0){
+                if(c==nums[i]+nums[j]){
                     s.insert({nums[k],nums[i],nums[j]});
                     i++;
                     j--;
-                }else if(sum>0){
-                    j--;
-                }else{
+                }else if(c>nums[i]+nums[j]){
                     i++;
+                }else{
+                    j--;
                 }
                 
             }
