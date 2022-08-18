@@ -1,31 +1,52 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
-       sort(nums.begin(),nums.end());
+       int n=nums.size();
+       int num1=-1;
+       int num2=-1;
         
-        int n=nums.size();
+        int c1=0;
+        int c2=0;
         
-        
-        vector<int>ans;
-        int count=1;
-        
-        for(int i=1;i<n;i++){
-         if(nums[i]!=nums[i-1]){
-             if(count>n/3){
-                 ans.push_back(nums[i-1]);
-             }
-             
-             count=1;
-         }else{
-             count++;
-         }
-            
+        for(int i=0;i<n;i++){
+            if(nums[i]==num1){
+                c1++;
+            }else if(nums[i]==num2){
+                c2++;
+            }else if(c1==0){
+                num1=nums[i];
+                c1=1;
+            }else if(c2==0){
+                num2=nums[i];
+                c2=1;
+            }else{
+                c1--;
+                c2--;
+            }
         }
-        if(count>n/3){
-            ans.push_back(nums[n-1]);
+        
+        int count1=0;
+        int count2=0;
+        
+        for(int i=0;i<n;i++){
+            if(nums[i]==num1){
+                count1++;
+            }else if(nums[i]==num2){
+                count2++;
+            }
         }
         
-        return ans;
+        if(count1>n/3 && count2>n/3){
+            return {num1,num2};
+        }
+        else if(count1>n/3){
+            return {num1};
+        }else if(count2>n/3){
+            return {num2};
+        }
+        
+        return {};
+        
         
     }
 };
