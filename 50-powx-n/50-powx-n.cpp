@@ -2,10 +2,10 @@ class Solution {
 public:
     double myPow(double x, int n) {
         if(n==0){
-            return (double)1;
+            return 1.0;
         }
         else if(x==0){
-            return (double)0;
+            return 0.0;
         }
         
         
