@@ -4,33 +4,34 @@ public:
         int n=matrix.size();
         int m=matrix[0].size();
         
-        if(target<matrix[0][0]){
+        int k=-1;
+        
+        for(int i=0;i<n;i++){
+            if(target<matrix[i][0]){
+                break;
+            }
+            k++;
+        }
+        
+        if(k==-1){
             return false;
         }
         
-        int k=0;
-        for(int i=0;i<n;i++){
-            if(matrix[i][0]>target){
-                break;
-            }
-            k=i;
-        }
+        int i=0;
+        int j=m-1;
         
-        
-        int l=0;
-        int h=m-1;
-        
-        while(l<=h){
-            int mid=l + (h-l)/2;
+        while(i<=j){
+            int mid=i+(j-i)/2;
             
             if(matrix[k][mid]==target){
                 return true;
+            }else if(matrix[k][mid]>target){
+                j=mid-1;
+            }else {
+                i=mid+1;
             }
-            else if(matrix[k][mid]<target){
-                l=mid+1;
-            }else{
-                h=mid-1;
-            }
+            
+            
         }
         
         return false;
