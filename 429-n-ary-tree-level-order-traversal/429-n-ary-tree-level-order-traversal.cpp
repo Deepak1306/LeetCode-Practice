@@ -29,22 +29,30 @@ public:
         
         queue<Node*>q;
         q.push(root);
+        q.push(NULL);
         vector<int>a;
         while(!q.empty()){
-            int size=q.size();
+            Node* node=q.front();
+            q.pop();
             
-            while(size--){
-                Node* node=q.front();
-                q.pop();
-                a.push_back(node->val);
-                
-                for(int i=0;i<node->children.size();i++){
-                    q.push(node->children[i]);
-                }
-                
+            if(node==NULL){
+               if(q.empty()){
+                   ans.push_back(a);
+                   return ans;
+               }else{
+                   ans.push_back(a);
+                   a.clear();
+                   q.push(NULL);
+                   continue;
+               }    
             }
-            ans.push_back(a);
-            a.clear();
+            
+            a.push_back(node->val);
+            
+            for(int i=0;i<node->children.size();i++){
+                q.push(node->children[i]);
+            }
+            
             
         }
         
