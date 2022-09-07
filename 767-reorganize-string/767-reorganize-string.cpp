@@ -1,65 +1,58 @@
 class Solution {
 public:
-    char maxChar(string s, vector<int>count){
-        char ch;
-        int c=0;
+    
+    int findMax(vector<int>&count,char &c){
+        int ans=INT_MIN;
         
-        for(int i=0;i<count.size();i++){
-            if(c<count[i]){
-                c=count[i];
-                ch=i+'a';
+        for(int i=0;i<26;i++){
+            if(ans<count[i]){
+                ans=count[i];
+                c=i+'a';
             }
         }
         
-        return ch;
+        return ans;
     }
     
-    
     string reorganizeString(string s) {
-       vector<int>count(26,0);
-        
+        vector<int>count(26,0);
         int n=s.length();
-        if(n==0 || n==1){
-            return s;
-        }
-        
-        
+    
         for(int i=0;i<n;i++){
-           int c=s[i]-'a';
-            count[c]++;
+            count[s[i]-'a']++;
         }
         
-        char ch=maxChar(s,count);
-        int maxCount=count[ch-'a'];
+        char c;
+        int maxCount=findMax(count,c);
         
         if(maxCount>(n+1)/2){
             return "";
         }
         
-        string ans(n,' ');
+        string str(n,'-');
+        int i=0;
         
-        int in=0;
-        while(maxCount>0){
-            ans[in]=ch;
-            in+=2;
-            maxCount--;
+        while(count[c-'a']>0){
+            str[i]=c;
+            i+=2;
+            count[c-'a']--;
         }
         
-        count[ch-'a']=0;
         
-        for(int i=0;i<count.size();i++){
+        for(int j=0;j<26;j++){
             
-            while(count[i]>0){
-             
-            in=(in>=n)?1:in;
-            ans[in]=i+'a';
-            count[i]--;
-            in+=2;  
+            while(count[j]>0){
+                if(i>=n){
+                    i=1;
+                }
+                str[i]=j+'a';
+                i+=2;
+                count[j]--;
+                 
             }
         }
         
-        return ans;
-        
+        return str;
         
     }
 };
