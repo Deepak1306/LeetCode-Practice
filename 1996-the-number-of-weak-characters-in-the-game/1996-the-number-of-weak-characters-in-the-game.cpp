@@ -29,7 +29,7 @@ public:
                     att=arr[i][0];
                 }      
             }else{
-                mx=max(mx,arr[i][1]);
+                mx=arr[i][1];
             }
             
             i++;
