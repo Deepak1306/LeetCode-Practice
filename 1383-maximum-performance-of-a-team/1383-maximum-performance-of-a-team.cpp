@@ -17,6 +17,7 @@ public:
         
         long sum=0;
         long ans=INT_MIN;
+        
         for(int i=0;i<k-1;i++){
             pq.push(v[i].second);
             sum=(sum + v[i].second);
@@ -28,19 +29,13 @@ public:
             ans=max(ans,v[i].first*(sum+v[i].second));
             
             if(!pq.empty() && v[i].second>pq.top()){
-                
                 sum-=pq.top();
                 sum=sum + v[i].second;
                 pq.pop();
                 pq.push(v[i].second);
-                 ans=max(ans,sum*v[i].first);
                 
             }
         }
-        
         return ans%mod;
-        
-        
-        
     }
 };
