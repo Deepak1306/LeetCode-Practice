@@ -27,15 +27,12 @@ public:
                         j++;
                     }
                 
-            } 
+               } 
             
         }
         
-        if(count>4){
-            return false;
-        }
         
-        if(count!=0 && c!=count-1){
+        if((count>4) || (count!=0 && c!=count-1)){
             return false;
         }
         
