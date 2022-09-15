@@ -2,32 +2,30 @@ class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& arr) {
         map<int,int>map;
-        multiset<int>s;
-        
+        sort(arr.begin(),arr.end());
         int n=arr.size();
         for(int i=0;i<n;i++){
             map[arr[i]]++;
-            s.insert(arr[i]);
         }
         
         vector<int>ans;
         
-        for(auto i:s){
-            if(map.find(i)==map.end()){
+        for(int i=0;i<n;i++){
+            if(map.find(arr[i])==map.end()){
                 continue;
             }
             
-            int half=i*2;
-            map[i]--;
-            if(map[i]==0){
-                map.erase(i);
+            int half=arr[i]*2;
+            map[arr[i]]--;
+            if(map[arr[i]]==0){
+                map.erase(arr[i]);
             }
             
             if(map.find(half)==map.end()){
                 return {};
             }else{
             
-                    ans.push_back(i);
+                    ans.push_back(arr[i]);
                     map[half]--;
                     
                     if(map[half]==0){
@@ -37,7 +35,7 @@ public:
                 }
             }
         
-
+        
         return ans;  
     }
 };
