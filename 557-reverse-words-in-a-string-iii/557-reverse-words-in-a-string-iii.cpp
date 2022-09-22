@@ -9,7 +9,7 @@ public:
         string s1="";
         while(i<n){
             if(s[i]==' '){
-                str=str+s1+' ';
+                str.append(s1+' ');
                 s1="";
             }
             else{
@@ -18,7 +18,7 @@ public:
             
             i++;
         }
-        str=str+s1;
+        str.append(s1);
         return str;
     }
 };
