@@ -1,13 +1,32 @@
 class Solution {
 public:
+     
     int concatenatedBinary(int n) {
         
-        long ans = 0, mod = 1e9+7;
-        for (int i = 1; i <= n; ++i) {
-            int len = 0;
-            for (int j = i; j; j >>= 1, ++len);
-            ans = ((ans << len) % mod + i) % mod;
+    
+        int i=n;
+        int j=n;
+        int mod=1e9+7;
+        long count=0;
+        long x=1;
+        while(j>0){
+            while(i>0){
+               int y=i%2;
+                i=i/2;
+                
+                if(y!=0){
+                    count=count+x;
+                    count%=mod;
+                }
+                x*=2;
+                x%=mod;
+            }
+            
+            j--;
+            i=j;
         }
-        return ans;
+        
+        return count%mod;
+        
     }
 };
