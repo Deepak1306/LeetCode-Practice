@@ -6,6 +6,7 @@ public:
           vector<int>right(n,0);
         
         left[0]=1;
+        right[n-1]=1;
         for(int i=1;i<n;i++){
             if(nums[i]<=nums[i-1]){
                 left[i]=1+left[i-1];
@@ -13,14 +14,11 @@ public:
             else{
                 left[i]=1;
             }
-        }
-        
-        right[n-1]=1;
-        for(int i=n-2;i>=0;i--){
-            if(nums[i]<=nums[i+1]){
-                right[i]=1+right[i+1];
+            
+            if(nums[n-1-i]<=nums[n-i]){
+                right[n-1-i]=1+right[n-i];
             }else{
-                right[i]=1;
+                right[n-i-1]=1;
             }
             
         }
@@ -32,7 +30,6 @@ public:
                 ans.push_back(i);
             }
         }
-        
         return ans;
          
     }
