@@ -4,19 +4,21 @@ public:
          priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
         
          int n=arr.size();
+        int i=0;
+        int j=n-1;
         
-        for(int i=0;i<n;i++){
-            int y=abs(arr[i]-x);
-            pq.push({y,arr[i]});
+        while(j-i>=k){
+            if(abs(arr[i]-x)>abs(arr[j]-x)){
+                i++;
+            }else{
+                j--;
+            }
         }
         vector<int>ans;
-        while(!pq.empty() && k){
-            ans.push_back(pq.top().second);
-            k--;
-            pq.pop();
+        while(i<=j){
+             ans.push_back(arr[i]);
+             i++;
         }
-        
-        sort(ans.begin(),ans.end());
         return ans;
         
     }
