@@ -1,24 +1,32 @@
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-       
-        int i=0;
-        int j=arr.size()-1;
-        while(j-i>=k){
-            if(abs(arr[i]-x)>abs(arr[j]-x)){
-                i++;
-            }else{
-                j--;
+         priority_queue<pair<int,int>>pq;
+        
+         int n=arr.size();
+        
+        for(int i=0;i<k;i++){
+            int y=abs(arr[i]-x);
+            pq.push({y,arr[i]});
+        }
+        
+        for(int i=k;i<n;i++){
+             int y=abs(arr[i]-x);
+            
+            if(y<pq.top().first){
+                pq.pop();
+                pq.push({y,arr[i]});                
             }
         }
         
         vector<int>ans;
-        
-        for(int m=i ;m<=j;m++){
-            ans.push_back(arr[m]);
+        while(!pq.empty()){
+            ans.push_back(pq.top().second);
+            pq.pop();
         }
         
-        return ans;    
+        sort(ans.begin(),ans.end());
+        return ans;
         
     }
 };
