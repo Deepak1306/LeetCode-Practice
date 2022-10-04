@@ -1,33 +1,29 @@
 class Solution {
 public:
-void helper(vector<vector<int>>& image,int source,int sr, int sc, int newColor,int n,int m){
-        
-        
-        if(sr<0 || sr>=n || sc<0 || sc>=m){
+    
+    void dfs(vector<vector<int>> &arr, int i,int j, int n,int m, int color, vector<vector<bool>>&vis, int x){
+        if(i<0 || i>=n || j<0 || j>=m || vis[i][j] || arr[i][j]==color || arr[i][j]!=x){
             return ;
         }
         
-    if(image[sr][sc]==newColor || image[sr][sc]!=source){
-        return ;
-    }
-    
-         
-         image[sr][sc]=newColor;
-         
-         helper(image,source,sr-1,sc,newColor,n,m);
-         helper(image,source,sr,sc-1,newColor,n,m);
-         helper(image,source, sr+1,sc,newColor,n,m);                     
-         helper(image,source,sr,sc+1,newColor,n,m);
+        vis[i][j]=true;
+        arr[i][j]=color;
+        dfs(arr,i-1,j,n,m,color,vis,x);
+        dfs(arr,i,j-1,n,m,color,vis,x);
+        dfs(arr,i+1,j,n,m,color,vis,x);
+        dfs(arr,i,j+1,n,m,color,vis,x);
         
-        return ;
         
     }
     
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         
+        int n=image.size();
+        int m=image[0].size();
         
-        helper(image,image[sr][sc],sr,sc,newColor,image.size(),image[0].size());
+        vector<vector<bool>> vis(n,vector<bool>(m,false));
         
+        dfs(image,sr,sc,n,m,color,vis, image[sr][sc]);
         return image;
     }
 };
