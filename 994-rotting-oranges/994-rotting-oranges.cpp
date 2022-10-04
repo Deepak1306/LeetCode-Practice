@@ -1,80 +1,71 @@
 class Solution {
 public:
-    bool isValid(vector<vector<int>>& grid, int i,int j, int n, int m){
-       
-        if(i>=0 && i<n && j>=0 && j<m && grid[i][j]==1){
-            return true;
-        }
-        
-        return false;
-        
-    }
-    
     int orangesRotting(vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
         
         queue<pair<int,int>>q;
-        
-        
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==2){
                     q.push({i,j});
+                }else if(grid[i][j]==1){
+                    count++;
                 }
             }
         }
-        
-        int t=0;
-        
+        int ans=0;
         while(!q.empty()){
-            int size=q.size();
+            int s=q.size();
             
-            while(size--){
+            while(s--){
                 int x=q.front().first;
                 int y=q.front().second;
+                
                 q.pop();
                 
-                if(isValid(grid,x-1,y,n,m)){
-                    q.push({x-1,y});
+                if(x-1>=0 && grid[x-1][y]==1){
+                    count--;
                     grid[x-1][y]=2;
+                    q.push({x-1,y});
                 }
                 
-                if(isValid(grid,x,y-1,n,m)){
-                     q.push({x,y-1});
+                
+                if(y-1>=0 && grid[x][y-1]==1){
+                    count--;
                     grid[x][y-1]=2;
+                    q.push({x,y-1});
                 }
                 
-                if(isValid(grid,x+1,y,n,m)){
-                     q.push({x+1,y});
+                
+                if(x+1<n && grid[x+1][y]==1){
+                    count--;
                     grid[x+1][y]=2;
+                    q.push({x+1,y});
                 }
                 
-                if(isValid(grid,x,y+1,n,m)){
-                     q.push({x,y+1});
+                
+                if(y+1<m && grid[x][y+1]==1){
+                    count--;
                     grid[x][y+1]=2;
+                    q.push({x,y+1});
                 }
-                
+               
             }
-            t++;
             
+            ans++;
         }
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1){
-                    return -1;
-                }
-            }
+        
+        if(count!=0){
+            return -1;
         }
         
-        if(t==0){
-            return 0;
+        if(ans==0){
+            return ans;
         }
-        
-        return t-1;
-        
-        
+        return ans-1;
         
     }
 };
