@@ -15,11 +15,19 @@ public:
         if(root==NULL){
             return false;
         }
-        if(targetSum==root->val && root->left==NULL && root->right==NULL){
+        
+        if(root->val==targetSum && root->left==NULL && root->right==NULL){
             return true;
         }
         
-        return hasPathSum(root->left,targetSum-root->val) || hasPathSum(root->right,targetSum-root->val);
+        bool check1=hasPathSum(root->left,targetSum-root->val);
+        bool check2=hasPathSum(root->right,targetSum-root->val);
         
+        if(check1 || check2){
+            return true;
+        }
+        
+        return false;
+
     }
 };
