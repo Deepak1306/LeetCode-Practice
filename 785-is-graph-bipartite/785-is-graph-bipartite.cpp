@@ -1,44 +1,39 @@
 class Solution {
 public:
-    bool isBi(vector<vector<int>>graph,int node, vector<int>& color){
-        queue<int>q;
-        q.push(node);
-        color[node]=0;
-        
-        while(!q.empty()){
-            int f=q.front();
-            q.pop();
-            
-            for(int j:graph[f]){
-                if(color[j]==-1){
-                    color[j]=!color[f];
-                    q.push(j);
-                }else if(color[j]==color[f]){
-                    return false;
-                }
-            }
-            
-            
-        }
-        
-        return true;
-        
-    }
-    
     bool isBipartite(vector<vector<int>>& graph) {
         int n=graph.size();
         
         vector<int>color(n,-1);
         
         for(int i=0;i<n;i++){
-            if(color[i]==-1){
-                if(!isBi(graph,i,color)){
+            if(color[i]!=-1){
+                continue;
+            }
+            
+            queue<pair<int,int>>q;
+        
+        q.push({i,0});
+        color[i]=0;
+        
+        while(!q.empty()){
+            int x=q.front().first;
+            int c=q.front().second;
+            
+            q.pop();
+            
+            for(int j:graph[x]){
+                if(color[j]==-1){
+                   color[j]=!c;
+                   q.push({j,color[j]}); 
+                }else if(color[j]==c){
                     return false;
                 }
             }
+            
         }
         
+        }
         
-      return true;  
+        return true;
     }
 };
